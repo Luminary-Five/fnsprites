@@ -24,7 +24,9 @@
             --color-Epic: #511D7F;
             --color-Legendary: #8E4122;
             --color-Mythic: #80622A;
-            --color-Special: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            
+            /* Custom Special Rainbow Palette matched precisely from your image */
+            --color-Special: linear-gradient(135deg, #51f7cc 0%, #7da9fc 28%, #e374ee 62%, #ffb6a1 85%, #b5f69e 100%);
 
             /* Text Colors for Rarities */
             --text-Rare: #00FFFB;
@@ -38,7 +40,7 @@
             --bg-Epic: linear-gradient(180deg, #4d1566 0%, #1e052c 100%);
             --bg-Legendary: linear-gradient(180deg, #743e0a 0%, #301702 100%);
             --bg-Mythic: linear-gradient(180deg, #6c1212 0%, #2b0606 100%);
-            --bg-Special: linear-gradient(180deg, #094d49 0%, #031d1b 100%);
+            --bg-Special: linear-gradient(180deg, #134641 0%, #061d1b 100%);
         }
 
         * {
@@ -314,10 +316,11 @@
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             transition: transform 0.15s, border-color 0.15s;
+            transform: translate3d(0, 0, 0);
         }
 
         .sprite-card:hover {
-            transform: translateY(-4px);
+            transform: translate3d(0, -4px, 0);
             border-color: #ffffff;
         }
 
@@ -328,30 +331,38 @@
         .sprite-card.rarity-Mythic .card-inner-display { background: var(--bg-Mythic); }
         .sprite-card.rarity-Special .card-inner-display { background: var(--bg-Special); }
 
-        /* Moving Radial Aura Glow Effect */
+        /* Optimized, High-Performance Panning Aura Glow Effect */
         .card-inner-display::before {
             content: '';
             position: absolute;
-            top: -50%; left: -50%; right: -50%; bottom: -50%;
-            border-radius: 40%;
-            opacity: 0.35;
-            background: radial-gradient(circle, #ffffff 0%, transparent 65%);
-            animation: auraRotate 6s infinite linear;
+            top: 0; left: 0; right: 0; bottom: 0;
+            opacity: 0.28;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            background-size: 300% 300%;
+            background-position: 0% 0%;
+            animation: fluidPan 7s infinite linear;
             pointer-events: none;
             z-index: 1;
+            will-change: background-position;
+        }
+
+        /* Custom high-performance background aura for Special rarity cards */
+        .sprite-card.rarity-Special .card-inner-display::before {
+            background: linear-gradient(135deg, rgba(227,116,238,0) 0%, rgba(227,116,238,0.6) 50%, rgba(227,116,238,0) 100%);
+            background-size: 300% 300%;
+            opacity: 0.45;
         }
 
         body.low-fidelity-mode .card-inner-display::before {
             animation: none !important;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(255,255,255,0.18) 0%, transparent 70%) !important;
+            background-size: auto !important;
         }
 
-        @keyframes auraRotate {
-            0% { transform: translate(5%, 5%) rotate(0deg); }
-            50% { transform: translate(-5%, -5%) rotate(180deg); }
-            100% { transform: translate(5%, 5%) rotate(360deg); }
+        @keyframes fluidPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
 
         .card-inner-display {
@@ -378,7 +389,7 @@
             box-shadow: 0 0 20px rgba(50, 205, 80, 0.45);
         }
 
-        /* VIEW MODE RECONSTRUCTION: Hides choice borders completely when loaded from shared parameter links */
+        /* VIEW MODE RECONSTRUCTION */
         body.viewing-shared-collection .sprite-card {
             border-color: #1a2233 !important;
             box-shadow: 0 6px 14px rgba(0,0,0,0.4) !important;
@@ -439,7 +450,7 @@
         .sprite-card.rarity-Mythic .fortnite-rarity-tag { background: var(--color-Mythic); color: var(--text-Mythic); }
         .sprite-card.rarity-Special .fortnite-rarity-tag { background: var(--color-Special); color: var(--text-Special); }
 
-        /* Footer Style Overhaul matching allsprites.jpg texture bar layer */
+        /* Footer Style Overhaul */
         .card-title-footer {
             font-size: 13px;
             font-weight: 700;
@@ -455,7 +466,7 @@
             border-top: 1px solid rgba(255,255,255,0.06);
         }
 
-        /* Underlay colored base borders representing individual texture accents */
+        /* Underlay colored base borders */
         .sprite-card::after {
             content: '';
             position: absolute;
@@ -659,13 +670,6 @@
     }
 
     function renderGrid() {
-        const activeElements = {};
-        spriteGrid.querySelectorAll('.sprite-card').forEach(card => {
-            if (card.dataset.id) {
-                activeElements[card.dataset.id] = card.querySelector('.card-inner-display::before');
-            }
-        });
-
         spriteGrid.innerHTML = '';
         
         if (typeof baseSprites === 'undefined') {
@@ -755,6 +759,13 @@
         }
         localStorage.setItem('fn_obtained_sprites', JSON.stringify(obtainedSprites));
         updateCollectionCounter();
+
+        // If a status filter is active, remove items dynamically instead of fully breaking active gradient frames
+        if (currentStatusFilter === 'obtained' && !cardElement.classList.contains('obtained')) {
+            cardElement.remove();
+        } else if (currentStatusFilter === 'missing' && cardElement.classList.contains('obtained')) {
+            cardElement.remove();
+        }
     }
 
     shareBtn.addEventListener('click', () => {
