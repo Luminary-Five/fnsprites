@@ -624,7 +624,7 @@
         const shareURL = `${window.location.origin}${window.location.pathname}?c=${compressionCodeString}`;
         
         navigator.clipboard.writeText(shareURL).then(() => {
-            alert("Share link copied to clipboard! Paste it to your friends to show off your sprite collection.");
+            alert("Share link copied to clipboard!");
         }).catch(err => {
             prompt("Copy your link here:", shareURL);
         });
