@@ -1,5 +1,12 @@
 // DEVELOPER DATA SHEET: Add new sprites or toggle unreleased states here.
 const baseSprites = [
+    { id: "water_basic", name: "Water Sprite", theme: "Basic", unreleased: false },
+    { id: "water_gold", name: "Gold Water Sprite", theme: "Gold", unreleased: false },
+    { id: "water_candy", name: "Candy Water Sprite", theme: "Candy", unreleased: true },
+    { id: "water_galaxy", name: "Galaxy Water Sprite", theme: "Galaxy", unreleased: true },
+    { id: "water_gem", name: "Gem Water Sprite", theme: "Gem", unreleased: true },
+    { id: "water_holofoil", name: "Holofoil Water Sprite", theme: "Holofoil", unreleased: true },
+    
     { id: "earth_basic", name: "Earth Sprite", theme: "Basic", unreleased: false },
     { id: "earth_gold", name: "Gold Earth Sprite", theme: "Gold", unreleased: false },
     { id: "earth_candy", name: "Candy Earth Sprite", theme: "Candy", unreleased: true },
