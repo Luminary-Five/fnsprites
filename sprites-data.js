@@ -42,14 +42,14 @@ const baseSprites = [
     { id: "demon_candy", name: "Candy Demon Sprite", theme: "Candy", rarity: "Special", unreleased: true },
     { id: "demon_gem", name: "Gem Demon Sprite", theme: "Gem", rarity: "Special", unreleased: true },
 
-	{ id: "punk_basic", name: "Punk Sprite", theme: "Basic", rarity: "XXXXXXX", unreleased: false },
+	{ id: "punk_basic", name: "Punk Sprite", theme: "Basic", rarity: "Legendary", unreleased: false },
     { id: "punk_gold", name: "Gold Punk Sprite", theme: "Gold", rarity: "Special", unreleased: false },
     { id: "punk_candy", name: "Candy Punk Sprite", theme: "Candy", rarity: "Special", unreleased: true },
     { id: "punk_galaxy", name: "Galaxy Punk Sprite", theme: "Galaxy", rarity: "Special", unreleased: true },
     { id: "punk_gem", name: "Gem Punk Sprite", theme: "Gem", rarity: "Special", unreleased: true },
     { id: "punk_rift", name: "Rift Punk Sprite", theme: "Rift", rarity: "Special", unreleased: true },
 
-	{ id: "king_basic", name: "King Sprite", theme: "Basic", rarity: "XXXXXXX", unreleased: false },
+	{ id: "king_basic", name: "King Sprite", theme: "Basic", rarity: "Epic", unreleased: false },
     { id: "king_gold", name: "Gold King Sprite", theme: "Gold", rarity: "Special", unreleased: false },
     { id: "king_candy", name: "Candy King Sprite", theme: "Candy", rarity: "Special", unreleased: true },
     { id: "king_galaxy", name: "Galaxy King Sprite", theme: "Galaxy", rarity: "Special", unreleased: true },
