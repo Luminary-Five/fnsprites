@@ -12,6 +12,11 @@ const baseSprites = [
     { id: "fire_galaxy", name: "Galaxy Fire Sprite", theme: "Galaxy", unreleased: true },
     { id: "fire_holofoil", name: "Holofoil Fire Sprite", theme: "Holofoil", unreleased: true },
 
+    { id: "ghost_basic", name: "Ghost Sprite", theme: "Basic", unreleased: false },
+    { id: "ghost_gold", name: "Gold Ghost Sprite", theme: "Gold", unreleased: false },
+    { id: "ghost_candy", name: "Candy Ghost Sprite", theme: "Candy", unreleased: true },
+    { id: "ghost_galaxy", name: "Galaxy Ghost Sprite", theme: "Galaxy", unreleased: true },
+    { id: "ghost_holofoil", name: "Holofoil Ghost Sprite", theme: "Holofoil", unreleased: true },
     
     { id: "theburntpeanut_basic", name: "TheBurntPeanut Sprite", theme: "Basic", unreleased: true },
 ];
