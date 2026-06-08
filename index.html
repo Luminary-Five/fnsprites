@@ -17,21 +17,19 @@
             --fn-neon-cyan: #00f0ff;
             --fn-unreleased: #ef4444;
 
-            /* Theme Gradients */
-            --gradient-Basic: linear-gradient(180deg, #2575fc 0%, #6a11cb 100%);
-            --gradient-Gold: linear-gradient(180deg, #fcd34d 0%, #b45309 100%);
-            --gradient-Candy: linear-gradient(180deg, #ff758c 0%, #ff7eb3 100%);
-            --gradient-Galaxy: linear-gradient(180deg, #1d1b4b 0%, #4c1d95 50%, #701a75 100%);
-            --gradient-Gem: linear-gradient(180deg, #06b6d4 0%, #0891b2 100%);
-            --gradient-Holofoil: linear-gradient(135deg, #a5b4fc 0%, #6366f1 25%, #ec4899 50%, #14b8a6 75%, #f59e0b 100%);
-            --gradient-Rift: linear-gradient(180deg, #b5179e 0%, #7209b7 50%, #3f37c9 100%);
+            /* Precise Fortnite Locker Hex Codes matched from your images */
+            --color-Rare: #127fc4;
+            --color-Epic: #aa42e7;
+            --color-Legendary: #df881f;
+            --color-Mythic: #d33c3c;
+            --color-Special: #12b7a9;
 
-            /* Fortnite Rarity Identity Colors */
-            --rarity-Rare: #007bff;
-            --rarity-Epic: #b145e5;
-            --rarity-Legendary: #f3af19;
-            --rarity-Mythical: #e64c4c;
-            --rarity-Special: #00ffff;
+            /* Base Rarity Solid Backgrounds */
+            --bg-Rare: linear-gradient(180deg, #104273 0%, #081a35 100%);
+            --bg-Epic: linear-gradient(180deg, #4d1566 0%, #1e052c 100%);
+            --bg-Legendary: linear-gradient(180deg, #743e0a 0%, #301702 100%);
+            --bg-Mythic: linear-gradient(180deg, #6c1212 0%, #2b0606 100%);
+            --bg-Special: linear-gradient(180deg, #094d49 0%, #031d1b 100%);
         }
 
         * {
@@ -126,7 +124,6 @@
             margin-bottom: 12px;
         }
 
-        /* Upgraded Toggle UI Elements */
         .toggle-container {
             display: flex;
             background: #0e1117;
@@ -153,7 +150,6 @@
             color: #000;
         }
 
-        /* Unreleased switch styling rule */
         .switch-row {
             display: flex;
             justify-content: space-between;
@@ -199,7 +195,6 @@
             transform: translateX(22px);
         }
 
-        /* Creator Card Section Layout */
         .creator-card {
             text-align: center;
         }
@@ -246,38 +241,56 @@
             gap: 15px;
         }
 
+        /* Sprite Card Core Styling */
         .sprite-card {
-            background-color: #171c26;
-            border: 3px solid #2d3648;
-            border-radius: 8px;
-            padding: 5px;
+            border: 3px solid #1a2233;
+            background-color: #0f141d;
+            border-radius: 0px; /* Custom angular edge matching the Fortnite locker asset profile */
+            padding: 0px;
             position: relative;
             cursor: pointer;
-            aspect-ratio: 1 / 1.15;
+            aspect-ratio: 1 / 1.18;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             transition: transform 0.15s, border-color 0.15s;
         }
 
         .sprite-card:hover {
             transform: translateY(-4px);
-            border-color: #4b5975;
+            border-color: #ffffff;
         }
 
-        .sprite-card.theme-Basic .card-inner-display { background: var(--gradient-Basic); }
-        .sprite-card.theme-Gold .card-inner-display { background: var(--gradient-Gold); }
-        .sprite-card.theme-Candy .card-inner-display { background: var(--gradient-Candy); }
-        .sprite-card.theme-Galaxy .card-inner-display { background: var(--gradient-Galaxy); }
-        .sprite-card.theme-Gem .card-inner-display { background: var(--gradient-Gem); }
-        .sprite-card.theme-Holofoil .card-inner-display { background: var(--gradient-Holofoil); }
-        .sprite-card.theme-Rift .card-inner-display { background: var(--gradient-Rift); }
+        /* Rarity Background Mapping Loops */
+        .sprite-card.rarity-Rare .card-inner-display { background: var(--bg-Rare); }
+        .sprite-card.rarity-Epic .card-inner-display { background: var(--bg-Epic); }
+        .sprite-card.rarity-Legendary .card-inner-display { background: var(--bg-Legendary); }
+        .sprite-card.rarity-Mythical .card-inner-display { background: var(--bg-Mythic); }
+        .sprite-card.rarity-Special .card-inner-display { background: var(--bg-Special); }
+
+        /* Moving Radial Aura Glow Effect */
+        .card-inner-display::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            border-radius: 40%;
+            opacity: 0.35;
+            background: radial-gradient(circle, #ffffff 0%, transparent 65%);
+            animation: auraRotate 6s infinite linear;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes auraRotate {
+            0% { transform: translate(5%, 5%) rotate(0deg); }
+            50% { transform: translate(-5%, -5%) rotate(180deg); }
+            100% { transform: translate(5%, 5%) rotate(360deg); }
+        }
 
         .card-inner-display {
             flex: 1;
             width: 100%;
-            border-radius: 4px;
             position: relative;
             display: flex;
             align-items: center;
@@ -286,34 +299,28 @@
         }
 
         .sprite-img {
-            max-width: 85%;
-            max-height: 85%;
+            max-width: 82%;
+            max-height: 82%;
             object-fit: contain;
-            filter: drop-shadow(0px 8px 8px rgba(0,0,0,0.5));
+            filter: drop-shadow(0px 10px 12px rgba(0,0,0,0.6));
             z-index: 2;
         }
 
-        .sprite-card .crown-indicator {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            transform: scale(0);
-            font-size: 20px;
-            z-index: 10;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .sprite-card.obtained .crown-indicator {
-            transform: scale(1.3);
-        }
-
+        /* OWNED Tracking Layout: Glow indicator border without the crown element */
         .sprite-card.obtained {
             border-color: var(--fn-yellow);
-            box-shadow: 0 0 15px rgba(244, 196, 48, 0.4);
+            box-shadow: 0 0 20px rgba(244, 196, 48, 0.45);
         }
 
-        /* Repositioned Unreleased Badge to Top Left */
+        /* VIEW MODE RECONSTRUCTION: Hides choice borders completely when loaded from shared parameter links */
+        body.viewing-shared-collection .sprite-card {
+            border-color: #1a2233 !important;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.4) !important;
+            cursor: default !important;
+            transform: none !important;
+        }
+
+        /* Unreleased Badge (Top Left Corner Overlay) */
         .status-badge.unreleased {
             position: absolute;
             top: 6px;
@@ -322,42 +329,62 @@
             color: #ffffff;
             font-size: 10px;
             font-weight: 900;
-            padding: 2px 6px;
-            border-radius: 3px;
+            padding: 1px 6px;
             z-index: 4;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transform: skewX(-10deg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
-        /* Bottom Rarity Badge Styling */
-        .rarity-badge {
+        /* Fortnite Angular Polygon Slanted Rarity Badge (Bottom Left Alignment) */
+        .fortnite-rarity-tag {
             position: absolute;
-            bottom: 4px;
-            left: 4px;
+            bottom: 0px;
+            left: 0px;
             color: #ffffff;
             font-size: 11px;
             font-weight: 900;
-            padding: 1px 6px;
-            border-radius: 3px;
+            padding: 2px 14px 2px 6px;
             z-index: 4;
-            letter-spacing: 0px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            letter-spacing: 0.5px;
+            /* Precise angled shear matching rare.PNG / epic.PNG cuts */
+            clip-path: polygon(0 0, 84% 0, 100% 100%, 0 100%);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
         }
-        .rarity-badge.rarity-Rare { background: var(--rarity-Rare); }
-        .rarity-badge.rarity-Epic { background: var(--rarity-Epic); }
-        .rarity-badge.rarity-Legendary { background: var(--rarity-Legendary); }
-        .rarity-badge.rarity-Mythical { background: var(--rarity-Mythical); }
-        .rarity-badge.rarity-Special { background: var(--rarity-Special); color: #000; text-shadow: none; }
+        .sprite-card.rarity-Rare .fortnite-rarity-tag { background: var(--color-Rare); }
+        .sprite-card.rarity-Epic .fortnite-rarity-tag { background: var(--color-Epic); }
+        .sprite-card.rarity-Legendary .fortnite-rarity-tag { background: var(--color-Legendary); }
+        .sprite-card.rarity-Mythical .fortnite-rarity-tag { background: var(--color-Mythic); }
+        .sprite-card.rarity-Special .fortnite-rarity-tag { background: var(--color-Special); color: #ffffff; }
 
+        /* Footer Style Overhaul matching allsprites.jpg texture bar layer */
         .card-title-footer {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             text-align: center;
-            padding: 4px 0 2px 0;
-            color: #e2e8f0;
+            padding: 6px 4px;
+            color: #ffffff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            z-index: 3;
+            position: relative;
+            background-color: rgba(15, 20, 29, 0.9);
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
+
+        /* Underlay colored base borders representing individual texture accents */
+        .sprite-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            z-index: 5;
+        }
+        .sprite-card.rarity-Rare::after { background-color: var(--color-Rare); }
+        .sprite-card.rarity-Epic::after { background-color: var(--color-Epic); }
+        .sprite-card.rarity-Legendary::after { background-color: var(--color-Legendary); }
+        .sprite-card.rarity-Mythical::after { background-color: var(--color-Mythic); }
+        .sprite-card.rarity-Special::after { background-color: var(--color-Special); }
 
         .view-mode-banner {
             display: none;
@@ -476,7 +503,7 @@
             });
             return decodedIds;
         } catch (e) {
-            console.error("Failed to decode tracking query code bundle extension:", e);
+            console.error("Failed to decode compressed tracking key sequence parameter string:", e);
             return [];
         }
     }
@@ -488,6 +515,8 @@
     let obtainedSprites = [];
 
     if (isViewMode) {
+        // Appends signature class to parent layout tree to universally drop selection styles automatically
+        document.body.classList.add('viewing-shared-collection');
         if (typeof baseSprites !== 'undefined') {
             obtainedSprites = decompressCollection(baseSprites, compressedCode);
         }
@@ -503,16 +532,14 @@
     const navbarStats = document.getElementById('navbar-stats');
     const shareBtn = document.getElementById('shareBtn');
 
-    // Tracking progress states variables
     let currentStatusFilter = 'all'; 
 
-    // Setup active toggle button event listeners
     const toggleAll = document.getElementById('toggle-all');
     const toggleOwned = document.getElementById('toggle-owned');
     const toggleUnowned = document.getElementById('toggle-unowned');
 
     function setStatusFilter(filterValue, activeButton) {
-        if (isViewMode) return; // Prevent filters in showcase mode
+        if (isViewMode) return;
         currentStatusFilter = filterValue;
         [toggleAll, toggleOwned, toggleUnowned].forEach(btn => btn.classList.remove('active'));
         activeButton.classList.add('active');
@@ -547,12 +574,10 @@
         baseSprites.forEach(sprite => {
             const isObtained = obtainedSprites.includes(sprite.id);
             
-            // Showcase View Lock Rules
             if (isViewMode && (!isObtained || sprite.unreleased)) {
                 return;
             }
 
-            // Unreleased Filter Logic: If the switch is off, hide unreleased sprites
             if (!isViewMode && !showUnreleased && sprite.unreleased) {
                 return;
             }
@@ -560,7 +585,6 @@
             const matchesSearch = sprite.name.toLowerCase().includes(searchQuery);
             const matchesTheme = selectedTheme === 'all' || sprite.theme === selectedTheme;
             
-            // Toggle Logic Check
             let matchesStatus = true;
             if (!isViewMode) {
                 if (currentStatusFilter === 'obtained') matchesStatus = isObtained;
@@ -569,17 +593,20 @@
 
             if (matchesSearch && matchesTheme && matchesStatus) {
                 const card = document.createElement('div');
-                card.className = `sprite-card theme-${sprite.theme} ${isObtained ? 'obtained' : ''}`;
                 
-                // Build layout positions for both separate badges
+                // Card setup class injects the rarity tag name to map custom CSS background properties
+                const itemRarity = sprite.rarity || 'Rare';
+                card.className = `sprite-card rarity-${itemRarity} ${isObtained ? 'obtained' : ''}`;
+                
                 const unreleasedBadge = sprite.unreleased ? `<div class="status-badge unreleased">UNRELEASED</div>` : '';
-                const rarityLabel = sprite.rarity || 'Rare';
-                const rarityBadge = `<div class="rarity-badge rarity-${rarityLabel}">${rarityLabel}</div>`;
+                
+                // Displays 'Mythical' data keys cleanly as 'MYTHIC' inside the angular locker label container
+                const displayRarityText = itemRarity === 'Mythical' ? 'MYTHIC' : itemRarity;
+                const rarityBadge = `<div class="fortnite-rarity-tag">${displayRarityText}</div>`;
                 
                 const inferredImagePath = `sprites/${sprite.id}.png`;
 
                 card.innerHTML = `
-                    <div class="crown-indicator">👑</div>
                     ${unreleasedBadge}
                     <div class="card-inner-display">
                         <img src="${inferredImagePath}" class="sprite-img" alt="${sprite.name}" onerror="this.src='https://placehold.co/150?text=Missing+File'">
@@ -616,7 +643,7 @@
         });
 
         if (activeCollected.length === 0) {
-            alert("You haven't collected any sprites! Click some before you generate a share link.");
+            alert("You don't have any sprites, mark some before sharing your collection!");
             return;
         }
 
@@ -634,7 +661,6 @@
     themeFilter.addEventListener('change', renderGrid);
     unreleasedSwitch.addEventListener('change', renderGrid);
 
-    // Lock UI items out if viewing a shared URL link 
     if (isViewMode) {
         unreleasedSwitch.disabled = true;
         toggleAll.disabled = true;
