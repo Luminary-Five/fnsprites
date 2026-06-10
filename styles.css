@@ -518,9 +518,9 @@ body.low-fidelity .sprite-card.rarity-Special .card-inner-display { background: 
         flex-direction: column;
         gap: 16px;
     }
-
-    /* Keep the filters panel above the sprite grid */
-    .layout-sidebar {
+    
+    /* Fixed class name from .layout-sidebar to .sidebar */
+    .sidebar {
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -651,5 +651,50 @@ body.low-fidelity .sprite-card.rarity-Special .card-inner-display { background: 
     .creator-subtext {
         font-size: 12px;
         margin-top: 6px;
+    }
+}
+
+/* ==========================================
+   LANDSCAPE MOBILE OPTIMIZATION
+   ========================================== */
+@media (max-width: 932px) and (orientation: landscape) {
+    /* 1. Recalculate Layout Flex System */
+    .app-layout {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers children horizontally */
+        width: 100%;
+    }
+
+    /* 2. Center Search Box & Panels */
+    .sidebar {
+        width: 100%;
+        max-width: 500px; /* Limits width so inputs don't stretch indefinitely */
+        align-items: center;
+        order: 1;
+    }
+
+    .panel-box {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 3. Fluid Grid Center & Extra Columns Expansion */
+    .sprite-grid {
+        order: 2;
+        width: 100%;
+        justify-content: center; /* Centers sprite rows if they don't fill the space */
+        
+        /* Auto-fills as many columns as possible down to a min-width of 115px */
+        grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+        gap: 10px;
+    }
+
+    /* 4. Center Creator Details at the Bottom */
+    .creator-card {
+        order: 3;
+        width: 100%;
+        max-width: 500px;
+        margin: 15px auto 0 auto;
     }
 }
