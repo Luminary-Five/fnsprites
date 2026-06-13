@@ -62,5 +62,5 @@ const baseSprites = [
     { id: "zeropoint_gem", name: "Gem Zero Point", theme: "Gem", rarity: "Special", unreleased: true },
     { id: "zeropoint_holofoil", name: "Holofoil Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true },
 	
-    { id: "theburntpeanut_basic", name: "TheBurntPeanut", theme: "Basic", rarity: "Mythic", unreleased: false },
+    { id: "theburntpeanut_basic", name: "Burnt Peanut", theme: "Basic", rarity: "Mythic", unreleased: false },
 ];
