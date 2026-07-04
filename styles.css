@@ -400,7 +400,7 @@ body {
 /* POSITIONED ACTION CROWN */
 .crown-action-icon {
     position: absolute;
-    bottom: 65px; 
+    bottom: 82px; 
     left: 3px;    
     font-size: 19px;
     z-index: 9;
@@ -408,6 +408,7 @@ body {
     line-height: 1;
     filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.9));
     transition: transform 0.1s ease;
+    -webkit-user-select: none;
     user-select: none;
 }
 .crown-action-icon:hover { transform: scale(1.25); }
@@ -430,6 +431,70 @@ body {
 .sprite-card.rarity-Mythic .fortnite-rarity-tag { background: var(--color-Mythic); color: var(--text-Mythic); }
 .sprite-card.rarity-Special .fortnite-rarity-tag { background: var(--color-Special); color: var(--text-Special); }
 
+.level-strip {
+    height: 24px;
+    background: #121824;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 4px;
+    z-index: 3;
+}
+
+.level-label {
+    font-size: 10px;
+    font-weight: 900;
+    color: #9fb2cc;
+    letter-spacing: 0.6px;
+    min-width: 24px;
+    text-align: center;
+}
+
+.level-buttons {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2px;
+    width: 100%;
+}
+
+.level-btn {
+    border: 1px solid #2f3a4f;
+    background: #0d131e;
+    color: #c4d3ea;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1;
+    height: 18px;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.level-btn:hover {
+    border-color: #5f7ca8;
+    color: #ffffff;
+}
+
+.level-btn.active {
+    background: #2563eb;
+    border-color: #60a5fa;
+    color: #ffffff;
+}
+
+.level-btn[data-level='5'].active {
+    background: linear-gradient(90deg, #b8860b, #ffd700);
+    border-color: #ffe066;
+    color: #000;
+}
+
+.level-btn:disabled {
+    opacity: 0.65;
+    cursor: default;
+}
+
 .card-title-footer {
     height: 38px;
     padding: 0px 4px;
@@ -445,11 +510,8 @@ body {
 }
 
 .card-title-footer span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
     max-width: 100%;
-    width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
@@ -603,13 +665,33 @@ body.low-fidelity .sprite-card.rarity-Special .card-inner-display { background: 
         font-size: 12px;
     }
 
+    .level-strip {
+        height: 22px;
+        padding: 0 3px;
+        gap: 3px;
+    }
+
+    .level-label {
+        font-size: 9px;
+        min-width: 22px;
+    }
+
+    .level-buttons {
+        gap: 1px;
+    }
+
+    .level-btn {
+        height: 16px;
+        font-size: 9px;
+    }
+
     .fortnite-rarity-tag {
         font-size: 9px;
         padding: 1px 10px 1px 4px;
     }
 
     .crown-action-icon {
-        bottom: 40px; 
+        bottom: 52px; 
         font-size: 16px;
     }
 

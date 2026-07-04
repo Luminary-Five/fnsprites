@@ -5,6 +5,7 @@ const isViewMode = compressedCode !== null;
 
 let obtainedSprites = [];
 let masteredSprites = [];
+let spriteLevels = {};
 
 if (isViewMode) {
     document.body.classList.add('viewing-shared-collection');
@@ -17,6 +18,8 @@ if (isViewMode) {
 } else {
     obtainedSprites = JSON.parse(localStorage.getItem('fn_obtained_sprites')) || [];
     masteredSprites = JSON.parse(localStorage.getItem('fn_mastered_sprites')) || [];
+    spriteLevels = JSON.parse(localStorage.getItem('fn_sprite_levels')) || {};
+    syncMasteryFromLevels();
 }
 
 const spriteGrid = document.getElementById('spriteGrid');
@@ -143,14 +146,90 @@ function updateCollectionCounter() {
 function adjustCardFontSizes() {
     document.querySelectorAll('.card-title-footer span').forEach(span => {
         const parent = span.parentElement;
-        let currentSize = 16.95;
+        const parentStyle = window.getComputedStyle(parent);
+        const horizontalPadding = (parseFloat(parentStyle.paddingLeft) || 0) + (parseFloat(parentStyle.paddingRight) || 0);
+        const availableWidth = Math.max(0, parent.clientWidth - horizontalPadding);
+
+        let currentSize = parseFloat(span.style.fontSize) || 16.95;
         span.style.fontSize = currentSize + 'px';
         
-        while ((span.scrollWidth > parent.clientWidth) && currentSize > 6) {
+        while ((span.scrollWidth > availableWidth) && currentSize > 6) {
             currentSize -= 0.5;
             span.style.fontSize = currentSize + 'px';
         }
     });
+}
+
+function getAdaptiveTitleFontSize(name) {
+    const safeName = (name || '').trim();
+    const baseSize = 16.95;
+    const minSize = 8.5;
+    const lengthOverBaseline = Math.max(0, safeName.length - 10);
+    const calculated = baseSize - (lengthOverBaseline * 0.45);
+    return Math.max(minSize, calculated);
+}
+
+function getSpriteLevel(id) {
+    const raw = Number(spriteLevels[id]);
+    if (!Number.isFinite(raw)) return 1;
+    return Math.max(1, Math.min(5, Math.round(raw)));
+}
+
+function syncMasteryFromLevels() {
+    if (isViewMode) return;
+
+    let changed = false;
+    Object.keys(spriteLevels).forEach(id => {
+        if (getSpriteLevel(id) === 5) {
+            if (!obtainedSprites.includes(id)) {
+                obtainedSprites.push(id);
+                changed = true;
+            }
+            if (!masteredSprites.includes(id)) {
+                masteredSprites.push(id);
+                changed = true;
+            }
+        }
+    });
+
+    if (changed) {
+        localStorage.setItem('fn_obtained_sprites', JSON.stringify(obtainedSprites));
+        localStorage.setItem('fn_mastered_sprites', JSON.stringify(masteredSprites));
+    }
+}
+
+function buildLevelSelector(spriteId, isInteractive, selectedLevel) {
+    const buttons = [1, 2, 3, 4, 5].map(level => {
+        const isActive = level === selectedLevel;
+        return `<button class="level-btn${isActive ? ' active' : ''}" data-level="${level}" data-sprite-id="${spriteId}" ${isInteractive ? '' : 'disabled'}>${level}</button>`;
+    }).join('');
+
+    return `
+        <div class="level-strip" aria-label="Level selector for ${spriteId}">
+            <span class="level-label">LVL</span>
+            <div class="level-buttons" role="group" aria-label="Sprite level buttons">
+                ${buttons}
+            </div>
+        </div>
+    `;
+}
+
+function setSpriteLevel(id, level) {
+    if (isViewMode) return;
+    const clampedLevel = Math.max(1, Math.min(5, Math.round(Number(level))));
+    if (!Number.isFinite(clampedLevel)) return;
+
+    spriteLevels[id] = clampedLevel;
+
+    if (clampedLevel === 5) {
+        if (!obtainedSprites.includes(id)) obtainedSprites.push(id);
+        if (!masteredSprites.includes(id)) masteredSprites.push(id);
+        localStorage.setItem('fn_obtained_sprites', JSON.stringify(obtainedSprites));
+        localStorage.setItem('fn_mastered_sprites', JSON.stringify(masteredSprites));
+    }
+
+    localStorage.setItem('fn_sprite_levels', JSON.stringify(spriteLevels));
+    renderGrid();
 }
 
 function buildCardHTML(sprite, isObtained, isMastered) {
@@ -175,6 +254,8 @@ function buildCardHTML(sprite, isObtained, isMastered) {
     const displayRarityText = itemRarity === 'Mythic' ? 'MYTHIC' : itemRarity;
     const rarityBadge = `<div class="fortnite-rarity-tag">${displayRarityText}</div>`;
     const inferredImagePath = `sprites/${sprite.id}.png`;
+    const adaptiveTitleFontSize = getAdaptiveTitleFontSize(sprite.name);
+    const levelSelectorHTML = buildLevelSelector(sprite.id, !isViewMode, getSpriteLevel(sprite.id));
 
     return `
         ${unreleasedBadge}
@@ -185,7 +266,8 @@ function buildCardHTML(sprite, isObtained, isMastered) {
             <img src="${inferredImagePath}" class="sprite-img" alt="${sprite.name}" onerror="this.src='https://placehold.co/150?text=Missing+File'">
             ${rarityBadge}
         </div>
-        <div class="card-title-footer"><span>${sprite.name}</span></div>
+        ${levelSelectorHTML}
+        <div class="card-title-footer"><span style="font-size:${adaptiveTitleFontSize}px">${sprite.name}</span></div>
     `;
 }
 
@@ -259,6 +341,17 @@ function renderGrid() {
                     toggleMastery(sprite.id);
                 });
             }
+        }
+
+        if (!isViewMode) {
+            card.querySelectorAll('.level-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const level = Number(btn.dataset.level);
+                    setSpriteLevel(sprite.id, level);
+                });
+            });
         }
 
         if (!isViewMode) {
@@ -730,3 +823,11 @@ unmasteredImageBtn.addEventListener('click', () => exportCanvasImage('unmastered
 masteredImageBtn.addEventListener('click', () => exportCanvasImage('mastered'));
 
 renderGrid();
+
+if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+        adjustCardFontSizes();
+    });
+}
+
+window.addEventListener('resize', adjustCardFontSizes);
