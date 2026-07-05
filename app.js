@@ -835,7 +835,7 @@ function finalizeCanvas(canvas, footerLinkHeight, borderThickness, fileName) {
     ctx.fillRect(borderThickness, canvas.height - footerLinkHeight - borderThickness, canvas.width - (borderThickness * 2), footerLinkHeight);
     
     ctx.fillStyle = '#ffffff';
-    let cleanUrlString = "staticvacant.github.io/fnsprites/";
+    let cleanUrlString = "luminary-five.github.io/fnsprites/";
     let targetFontPix = 24;
     ctx.font = `bold ${targetFontPix}px "Oswald", sans-serif`;
     ctx.textAlign = 'center';
