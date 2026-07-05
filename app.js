@@ -31,10 +31,12 @@ const shareBtn = document.getElementById('shareBtn');
 const imageBtn = document.getElementById('imageBtn');
 const missingImageBtn = document.getElementById('missingImageBtn');
 const unmasteredImageBtn = document.getElementById('unmasteredImageBtn');
+const nonTier5ImageBtn = document.getElementById('nonTier5ImageBtn');
 const masteredImageBtn = document.getElementById('masteredImageBtn');
 
 // New Switches
 const hideMasteredSwitch = document.getElementById('hide-mastered-switch');
+const hideTierFiveSwitch = document.getElementById('hide-tier-five-switch');
 const groupThemeSwitch = document.getElementById('group-theme-switch');
 
 const liveRatio = document.getElementById('live-counter-ratio');
@@ -49,6 +51,7 @@ if (!isViewMode) {
     unreleasedSwitch.checked = localStorage.getItem('fn_state_unreleased') === 'true';
     lowFidelitySwitch.checked = localStorage.getItem('fn_state_low_fidelity') === 'true';
     hideMasteredSwitch.checked = localStorage.getItem('fn_state_hide_mastered') === 'true';
+    hideTierFiveSwitch.checked = localStorage.getItem('fn_state_hide_tier5') === 'true';
 	if (localStorage.getItem('fn_state_group_theme') === null) {
 		groupThemeSwitch.checked = true;
 	} else {
@@ -82,7 +85,7 @@ else if (currentStatusFilter === 'missing') toggleUnowned.classList.add('active'
 const creatorCard = document.querySelector('.creator-card');
 const closeCreatorBtn = document.getElementById('closeCreatorBtn');
 
-if (sessionStorage.getItem('hide_creator_card') === 'true' && creatorCard) {
+if (creatorCard && sessionStorage.getItem('hide_creator_card') !== 'false') {
     creatorCard.style.display = 'none';
 }
 
@@ -113,6 +116,10 @@ unreleasedSwitch.addEventListener('change', () => {
 });
 hideMasteredSwitch.addEventListener('change', () => {
     localStorage.setItem('fn_state_hide_mastered', hideMasteredSwitch.checked);
+    renderGrid();
+});
+hideTierFiveSwitch.addEventListener('change', () => {
+    localStorage.setItem('fn_state_hide_tier5', hideTierFiveSwitch.checked);
     renderGrid();
 });
 groupThemeSwitch.addEventListener('change', () => {
@@ -171,8 +178,12 @@ function getAdaptiveTitleFontSize(name) {
 
 function getSpriteLevel(id) {
     const raw = Number(spriteLevels[id]);
-    if (!Number.isFinite(raw)) return 1;
-    return Math.max(1, Math.min(5, Math.round(raw)));
+    if (Number.isFinite(raw)) {
+        return Math.max(0, Math.min(5, Math.round(raw)));
+    }
+    if (masteredSprites.includes(id)) return 5;
+    if (obtainedSprites.includes(id)) return 0;
+    return null;
 }
 
 function syncMasteryFromLevels() {
@@ -180,11 +191,14 @@ function syncMasteryFromLevels() {
 
     let changed = false;
     Object.keys(spriteLevels).forEach(id => {
-        if (getSpriteLevel(id) === 5) {
-            if (!obtainedSprites.includes(id)) {
-                obtainedSprites.push(id);
-                changed = true;
-            }
+        const level = getSpriteLevel(id);
+
+        if (!obtainedSprites.includes(id)) {
+            obtainedSprites.push(id);
+            changed = true;
+        }
+
+        if (level === 5) {
             if (!masteredSprites.includes(id)) {
                 masteredSprites.push(id);
                 changed = true;
@@ -199,7 +213,7 @@ function syncMasteryFromLevels() {
 }
 
 function buildLevelSelector(spriteId, isInteractive, selectedLevel) {
-    const buttons = [1, 2, 3, 4, 5].map(level => {
+    const buttons = [0, 1, 2, 3, 4, 5].map(level => {
         const isActive = level === selectedLevel;
         return `<button class="level-btn${isActive ? ' active' : ''}" data-level="${level}" data-sprite-id="${spriteId}" ${isInteractive ? '' : 'disabled'}>${level}</button>`;
     }).join('');
@@ -216,18 +230,21 @@ function buildLevelSelector(spriteId, isInteractive, selectedLevel) {
 
 function setSpriteLevel(id, level) {
     if (isViewMode) return;
-    const clampedLevel = Math.max(1, Math.min(5, Math.round(Number(level))));
+    const clampedLevel = Math.max(0, Math.min(5, Math.round(Number(level))));
     if (!Number.isFinite(clampedLevel)) return;
 
     spriteLevels[id] = clampedLevel;
 
+    if (!obtainedSprites.includes(id)) obtainedSprites.push(id);
+
     if (clampedLevel === 5) {
-        if (!obtainedSprites.includes(id)) obtainedSprites.push(id);
         if (!masteredSprites.includes(id)) masteredSprites.push(id);
-        localStorage.setItem('fn_obtained_sprites', JSON.stringify(obtainedSprites));
-        localStorage.setItem('fn_mastered_sprites', JSON.stringify(masteredSprites));
+    } else {
+        // Levels 0-4 still count as collected and do not remove mastered.
     }
 
+    localStorage.setItem('fn_obtained_sprites', JSON.stringify(obtainedSprites));
+    localStorage.setItem('fn_mastered_sprites', JSON.stringify(masteredSprites));
     localStorage.setItem('fn_sprite_levels', JSON.stringify(spriteLevels));
     renderGrid();
 }
@@ -235,6 +252,7 @@ function setSpriteLevel(id, level) {
 function buildCardHTML(sprite, isObtained, isMastered) {
     const itemRarity = sprite.rarity || 'Rare';
     const unreleasedBadge = sprite.unreleased ? `<div class="status-badge unreleased">UNRELEASED</div>` : '';
+    const isLevelZero = isObtained && getSpriteLevel(sprite.id) === 0;
     
     let badgeHTML = '';
     let renderedCrownHTML = '';
@@ -247,8 +265,8 @@ function buildCardHTML(sprite, isObtained, isMastered) {
     }
 
     let crownHTML = '';
-    if (isObtained && !isMastered) {
-        crownHTML = `<div class="crown-action-icon" title="Master this Sprite">👑</div>`;
+    if (isObtained) {
+        crownHTML = `<div class="crown-action-icon${isMastered ? ' active' : ''}" title="${isMastered ? 'Unmark mastered' : 'Mark mastered'}">👑</div>`;
     }
 
     const displayRarityText = itemRarity === 'Mythic' ? 'MYTHIC' : itemRarity;
@@ -262,6 +280,7 @@ function buildCardHTML(sprite, isObtained, isMastered) {
         ${badgeHTML}
         ${crownHTML}
         <div class="card-inner-display">
+            ${isLevelZero ? '<div class="level-zero-overlay" aria-hidden="true"></div>' : ''}
             ${renderedCrownHTML}
             <img src="${inferredImagePath}" class="sprite-img" alt="${sprite.name}" onerror="this.src='https://placehold.co/150?text=Missing+File'">
             ${rarityBadge}
@@ -290,6 +309,7 @@ function renderGrid() {
     const selectedTheme = themeFilter.value;
     const showUnreleased = unreleasedSwitch.checked;
     const hideMastered = hideMasteredSwitch.checked;
+    const hideTierFive = hideTierFiveSwitch.checked;
     const groupByThemeSetting = groupThemeSwitch.checked;
 
     let itemsToRender = [];
@@ -297,6 +317,7 @@ function renderGrid() {
     // Completely standalone mapping grid rendering logic
     baseSprites.forEach(sprite => {
         if (hideMastered && masteredSprites.includes(sprite.id)) return;
+        if (hideTierFive && getSpriteLevel(sprite.id) === 5) return;
         const matchesSearch = sprite.name.toLowerCase().includes(searchQuery);
         const matchesTheme = selectedTheme === 'all' || sprite.theme === selectedTheme;
         if (matchesSearch && matchesTheme) {
@@ -312,6 +333,8 @@ function renderGrid() {
         const sprite = item.sprite;
         const isObtained = obtainedSprites.includes(sprite.id);
         const isMastered = masteredSprites.includes(sprite.id);
+        const spriteLevel = getSpriteLevel(sprite.id);
+        const isLevelZero = isObtained && spriteLevel === 0;
         
         if (isViewMode && (!isObtained || sprite.unreleased)) return;
         if (!isViewMode && !showUnreleased && sprite.unreleased) return;
@@ -329,10 +352,11 @@ function renderGrid() {
         const itemRarity = sprite.rarity || 'Rare';
         const itemTheme = sprite.theme || 'Basic';
         let masteryClass = isMastered ? ' mastered' : '';
-        card.className = `sprite-card rarity-${itemRarity} theme-${itemTheme} ${isObtained ? 'obtained' : ''}${masteryClass}`;
+        const levelZeroClass = isLevelZero ? ' level-zero' : '';
+        card.className = `sprite-card rarity-${itemRarity} theme-${itemTheme} ${isObtained ? 'obtained' : ''}${masteryClass}${levelZeroClass}`;
         card.innerHTML = buildCardHTML(sprite, isObtained, isMastered);
 
-        if (!isViewMode && isObtained && !isMastered) {
+        if (!isViewMode && isObtained) {
             const crownIcon = card.querySelector('.crown-action-icon');
             if (crownIcon) {
                 crownIcon.addEventListener('click', (e) => {
@@ -369,21 +393,28 @@ function toggleObtained(id, cardElement) {
     if (obtainedSprites.includes(id)) {
         obtainedSprites = obtainedSprites.filter(item => item !== id);
         masteredSprites = masteredSprites.filter(item => item !== id);
+        delete spriteLevels[id];
     } else {
         obtainedSprites.push(id);
+        if (getSpriteLevel(id) === null) {
+            spriteLevels[id] = 0;
+        }
     }
     localStorage.setItem('fn_obtained_sprites', JSON.stringify(obtainedSprites));
     localStorage.setItem('fn_mastered_sprites', JSON.stringify(masteredSprites));
+    localStorage.setItem('fn_sprite_levels', JSON.stringify(spriteLevels));
     renderGrid();
 }
 
 function toggleMastery(id) {
     if (!obtainedSprites.includes(id)) return;
-    if (!masteredSprites.includes(id)) {
-        masteredSprites.push(id);
-    } else {
+
+    if (masteredSprites.includes(id)) {
         masteredSprites = masteredSprites.filter(item => item !== id);
+    } else {
+        masteredSprites.push(id);
     }
+
     localStorage.setItem('fn_mastered_sprites', JSON.stringify(masteredSprites));
     renderGrid();
 }
@@ -437,6 +468,14 @@ function exportCanvasImage(mode) {
         titleColor = "#ffd700"; 
         fileName = "fnsprites-mastered";
         if (targetItems.length === 0) { alert("You don't have any mastered sprites!"); return; }
+    } else if (mode === 'non-tier5') {
+        targetItems = baseSprites.filter(s => obtainedSprites.includes(s.id) && getSpriteLevel(s.id) !== 5);
+        titleL1 = "FORTNITE SPRITES TRACKER:";
+        titleL2 = "NON TIER 5 SPRITES";
+        fallbackTitleText = "NON TIER 5";
+        titleColor = "#00f0ff";
+        fileName = "fnsprites-non-tier5";
+        if (targetItems.length === 0) { alert("You don't have any non tier 5 sprites!"); return; }
     }
 
     if (groupThemeSwitch.checked) {
@@ -820,6 +859,7 @@ function finalizeCanvas(canvas, footerLinkHeight, borderThickness, fileName) {
 imageBtn.addEventListener('click', () => exportCanvasImage('collected'));
 missingImageBtn.addEventListener('click', () => exportCanvasImage('missing'));
 unmasteredImageBtn.addEventListener('click', () => exportCanvasImage('unmastered'));
+nonTier5ImageBtn.addEventListener('click', () => exportCanvasImage('non-tier5'));
 masteredImageBtn.addEventListener('click', () => exportCanvasImage('mastered'));
 
 renderGrid();

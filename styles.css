@@ -379,8 +379,36 @@ body {
     z-index: 2;
 }
 
+.level-zero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 13, 19, 0.42);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.sprite-card.level-zero .card-inner-display {
+    filter: saturate(0.45) brightness(0.82);
+}
+
+.sprite-card.level-zero .sprite-img {
+    opacity: 0.82;
+    filter: grayscale(0.45) brightness(0.78) drop-shadow(0px 10px 12px rgba(0,0,0,0.6));
+}
+
+.sprite-card.level-zero .fortnite-rarity-tag {
+    opacity: 0.82;
+}
+
 .sprite-card.obtained { border-color: var(--fn-lime); box-shadow: 0 0 20px rgba(50, 205, 80, 0.45); }
-.sprite-card.obtained.mastered { border-color: var(--fn-mastered) !important; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important; }
+.sprite-card.obtained.level-zero {
+    border-color: #7d8a86;
+    box-shadow: 0 0 14px rgba(125, 138, 134, 0.35);
+}
+.sprite-card.obtained.mastered {
+    border-color: var(--fn-mastered) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 28px rgba(184, 134, 11, 0.22) !important;
+}
 
 .status-badge.unreleased { position: absolute; top: 6px; left: 6px; background: var(--fn-unreleased); color: #fff; font-size: 10px; font-weight: 900; padding: 1px 6px; z-index: 4; transform: skewX(-10deg); }
 .status-badge.collected { position: absolute; top: 6px; left: 6px; background: var(--fn-collected); color: #fff; font-size: 10px; font-weight: 900; padding: 1px 6px; z-index: 4; transform: skewX(-10deg); }
@@ -406,12 +434,22 @@ body {
     z-index: 9;
     cursor: pointer;
     line-height: 1;
-    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.9));
-    transition: transform 0.1s ease;
+    opacity: 0.78;
+    filter: grayscale(0.25) drop-shadow(0px 2px 4px rgba(0,0,0,0.9));
+    transition: transform 0.1s ease, opacity 0.15s ease, filter 0.15s ease;
     -webkit-user-select: none;
     user-select: none;
 }
-.crown-action-icon:hover { transform: scale(1.25); }
+.crown-action-icon:hover {
+    transform: scale(1.25);
+    opacity: 1;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.9));
+}
+
+.crown-action-icon.active {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.75)) drop-shadow(0px 2px 4px rgba(0,0,0,0.9));
+}
 
 .fortnite-rarity-tag {
     position: absolute;
@@ -454,7 +492,7 @@ body {
 
 .level-buttons {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 2px;
     width: 100%;
 }
@@ -482,6 +520,13 @@ body {
     background: #2563eb;
     border-color: #60a5fa;
     color: #ffffff;
+}
+
+.level-btn[data-level='0'].active {
+    background: linear-gradient(180deg, #6b7280, #4b5563);
+    border-color: #9ca3af;
+    color: #f9fafb;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
 }
 
 .level-btn[data-level='5'].active {
