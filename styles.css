@@ -411,6 +411,7 @@ body {
 }
 
 .status-badge.unreleased { position: absolute; top: 6px; left: 6px; background: var(--fn-unreleased); color: #fff; font-size: 10px; font-weight: 900; padding: 1px 6px; z-index: 4; transform: skewX(-10deg); }
+.status-badge.release-date { position: absolute; top: 24px; left: 6px; background: rgba(11, 13, 19, 0.92); color: #ffd7a1; font-size: 9px; font-weight: 900; padding: 1px 6px; z-index: 4; border: 1px solid rgba(255, 215, 161, 0.35); transform: skewX(-10deg); }
 .status-badge.collected { position: absolute; top: 6px; left: 6px; background: var(--fn-collected); color: #fff; font-size: 10px; font-weight: 900; padding: 1px 6px; z-index: 4; transform: skewX(-10deg); }
 .status-badge.mastered-badge { position: absolute; top: 6px; left: 6px; background: linear-gradient(90deg, #b8860b, var(--fn-mastered)); color: #000; font-size: 10px; font-weight: 900; padding: 1px 6px; z-index: 4; transform: skewX(-10deg); }
 

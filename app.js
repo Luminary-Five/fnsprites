@@ -43,6 +43,12 @@ const liveRatio = document.getElementById('live-counter-ratio');
 const liveBarFill = document.getElementById('live-counter-bar');
 const masteryRatio = document.getElementById('mastery-counter-ratio');
 const masteryBarFill = document.getElementById('mastery-counter-bar');
+const fallbackSpriteImagePath = 'siteimages/staticsprite.png';
+const releaseDateFormatter = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+});
 
 // RESTORE LAST SAVED STATES FROM LOCAL STORAGE
 if (!isViewMode) {
@@ -135,11 +141,46 @@ lowFidelitySwitch.addEventListener('change', () => {
     }
 });
 
+function parseSpriteReleaseDate(releaseDateString) {
+    if (typeof releaseDateString !== 'string') return null;
+
+    if (releaseDateString.trim() === '0000-00-00') return null;
+
+    const match = releaseDateString.trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return null;
+
+    const [, year, month, day] = match;
+    const parsed = new Date(Number(year), Number(month) - 1, Number(day));
+
+    if (Number.isNaN(parsed.getTime())) return null;
+    if (parsed.getFullYear() !== Number(year)) return null;
+    if (parsed.getMonth() !== Number(month) - 1) return null;
+    if (parsed.getDate() !== Number(day)) return null;
+
+    return parsed;
+}
+
+function isSpriteUnreleased(sprite) {
+    const releaseDate = parseSpriteReleaseDate(sprite.releaseDate);
+    if (releaseDate) {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        return today < releaseDate;
+    }
+
+    return Boolean(sprite.unreleased);
+}
+
+function getSpriteReleaseDateLabel(sprite) {
+    const releaseDate = parseSpriteReleaseDate(sprite.releaseDate);
+    return releaseDate ? releaseDateFormatter.format(releaseDate).toUpperCase() : '';
+}
+
 function updateCollectionCounter() {
     if (typeof baseSprites === 'undefined') return;
-    const totalReleased = baseSprites.filter(sprite => !sprite.unreleased).length;
-    const collectedReleased = baseSprites.filter(sprite => !sprite.unreleased && obtainedSprites.includes(sprite.id)).length;
-    const masteredReleased = baseSprites.filter(sprite => !sprite.unreleased && masteredSprites.includes(sprite.id)).length;
+    const totalReleased = baseSprites.filter(sprite => !isSpriteUnreleased(sprite)).length;
+    const collectedReleased = baseSprites.filter(sprite => !isSpriteUnreleased(sprite) && obtainedSprites.includes(sprite.id)).length;
+    const masteredReleased = baseSprites.filter(sprite => !isSpriteUnreleased(sprite) && masteredSprites.includes(sprite.id)).length;
     
     liveRatio.textContent = `${collectedReleased} / ${totalReleased}`;
     const collectionPercentage = totalReleased > 0 ? (collectedReleased / totalReleased) * 100 : 0;
@@ -251,7 +292,12 @@ function setSpriteLevel(id, level) {
 
 function buildCardHTML(sprite, isObtained, isMastered) {
     const itemRarity = sprite.rarity || 'Rare';
-    const unreleasedBadge = sprite.unreleased ? `<div class="status-badge unreleased">UNRELEASED</div>` : '';
+    const spriteIsUnreleased = isSpriteUnreleased(sprite);
+    const releaseDateLabel = getSpriteReleaseDateLabel(sprite);
+    const unreleasedBadge = spriteIsUnreleased ? `<div class="status-badge unreleased">UNRELEASED</div>` : '';
+    const releaseDateBadge = spriteIsUnreleased && releaseDateLabel
+        ? `<div class="status-badge release-date">RELEASES ${releaseDateLabel}</div>`
+        : '';
     const isLevelZero = isObtained && getSpriteLevel(sprite.id) === 0;
     
     let badgeHTML = '';
@@ -277,12 +323,13 @@ function buildCardHTML(sprite, isObtained, isMastered) {
 
     return `
         ${unreleasedBadge}
+        ${releaseDateBadge}
         ${badgeHTML}
         ${crownHTML}
         <div class="card-inner-display">
             ${isLevelZero ? '<div class="level-zero-overlay" aria-hidden="true"></div>' : ''}
             ${renderedCrownHTML}
-            <img src="${inferredImagePath}" class="sprite-img" alt="${sprite.name}" onerror="this.src='https://placehold.co/150?text=Missing+File'">
+            <img src="${inferredImagePath}" class="sprite-img" alt="${sprite.name}" onerror="this.onerror=null;this.src='${fallbackSpriteImagePath}'">
             ${rarityBadge}
         </div>
         ${levelSelectorHTML}
@@ -333,11 +380,12 @@ function renderGrid() {
         const sprite = item.sprite;
         const isObtained = obtainedSprites.includes(sprite.id);
         const isMastered = masteredSprites.includes(sprite.id);
+        const spriteIsUnreleased = isSpriteUnreleased(sprite);
         const spriteLevel = getSpriteLevel(sprite.id);
         const isLevelZero = isObtained && spriteLevel === 0;
         
-        if (isViewMode && (!isObtained || sprite.unreleased)) return;
-        if (!isViewMode && !showUnreleased && sprite.unreleased) return;
+        if (isViewMode && (!isObtained || spriteIsUnreleased)) return;
+        if (!isViewMode && !showUnreleased && spriteIsUnreleased) return;
 
         let matchesStatus = true;
         if (!isViewMode) {
@@ -445,7 +493,7 @@ function exportCanvasImage(mode) {
         fallbackTitleText = "MY COLLECTION";
         if (targetItems.length === 0) { alert("No collected sprites to export!"); return; }
     } else if (mode === 'missing') {
-        targetItems = baseSprites.filter(s => !s.unreleased && !obtainedSprites.includes(s.id));
+        targetItems = baseSprites.filter(s => !isSpriteUnreleased(s) && !obtainedSprites.includes(s.id));
         titleL1 = "FORTNITE SPRITES TRACKER:";
         titleL2 = "I'M LOOKING FOR THESE!";
         fallbackTitleText = "MISSING SPRITES";
@@ -582,9 +630,9 @@ function exportCanvasImage(mode) {
         }
 
         if (renderBars) {
-            const totalReleased = baseSprites.filter(sprite => !sprite.unreleased).length;
-            const colCount = baseSprites.filter(sprite => !sprite.unreleased && obtainedSprites.includes(sprite.id)).length;
-            const masCount = baseSprites.filter(sprite => !sprite.unreleased && masteredSprites.includes(sprite.id)).length;
+            const totalReleased = baseSprites.filter(sprite => !isSpriteUnreleased(sprite)).length;
+            const colCount = baseSprites.filter(sprite => !isSpriteUnreleased(sprite) && obtainedSprites.includes(sprite.id)).length;
+            const masCount = baseSprites.filter(sprite => !isSpriteUnreleased(sprite) && masteredSprites.includes(sprite.id)).length;
 
             let colPct = totalReleased > 0 ? (colCount / totalReleased) : 0;
             let masPct = totalReleased > 0 ? (masCount / totalReleased) : 0;
@@ -819,10 +867,15 @@ function exportCanvasImage(mode) {
             };
             
             img.onerror = () => {
-                loadedCount++;
-                if (loadedCount === targetItems.length) {
-                    finalizeCanvas(canvas, footerLinkHeight, borderThickness, fileName);
+                if (img.src.includes(fallbackSpriteImagePath)) {
+                    loadedCount++;
+                    if (loadedCount === targetItems.length) {
+                        finalizeCanvas(canvas, footerLinkHeight, borderThickness, fileName);
+                    }
+                    return;
                 }
+
+                img.src = fallbackSpriteImagePath;
             };
         });
     }
