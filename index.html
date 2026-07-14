@@ -49,7 +49,7 @@
         </div>
     </header>
 
-    <div class="view-mode-banner" id="viewModeBanner" style="display: none;">
+    <div class="view-mode-banner is-hidden" id="viewModeBanner">
         👀 VIEWING A SHARED COLLECTION. ITEMS ARE FILTERED TO SHOW COLLECTED ONLY.
         <a href="index.html">GO TO MY PERSONAL TRACKER</a>
     </div>
@@ -61,7 +61,7 @@
                 <input type="text" id="search" class="fn-input" placeholder="Type to search...">
                 
                 <div class="filter-header">FILTER BY THEME</div>
-                <select id="theme-filter" class="fn-select">
+                <select id="theme-filter" class="fn-select" aria-label="Filter by theme" title="Filter by theme">
                     <option value="all">ALL THEMES</option>
                     <option value="Basic">BASIC</option>
                     <option value="Gold">GOLD</option>
@@ -79,39 +79,39 @@
 					<button class="toggle-btn" id="toggle-unowned">UNOWNED</button>
 				</div>
 
-				<div class="switch-row">
-					<span class="switch-label">HIDE MASTERED SPRITES</span>
-					<input type="checkbox" id="hide-mastered-switch" class="switch-input">
-				</div>
-
                 <div class="switch-row">
-                    <span class="switch-label">HIDE TIER 5 SPRITES</span>
-                    <input type="checkbox" id="hide-tier-five-switch" class="switch-input">
-                </div>
-
-				<div class="switch-row">
-					<span class="switch-label">GROUP BY THEME</span>
-					<input type="checkbox" id="group-theme-switch" class="switch-input">
-				</div>
-
-                <div class="switch-row">
-                    <span class="switch-label">SHOW UNRELEASED</span>
-                    <input type="checkbox" id="unreleased-switch" class="switch-input">
+                    <label class="switch-label" for="hide-mastered-switch">HIDE MASTERED SPRITES</label>
+                    <input type="checkbox" id="hide-mastered-switch" class="switch-input" aria-label="Hide mastered sprites" title="Hide mastered sprites">
                 </div>
 
                 <div class="switch-row">
-                    <span class="switch-label">LOW FIDELITY MODE</span>
-                    <input type="checkbox" id="low-fidelity-switch" class="switch-input">
+                    <label class="switch-label" for="hide-tier-five-switch">HIDE TIER 5 SPRITES</label>
+                    <input type="checkbox" id="hide-tier-five-switch" class="switch-input" aria-label="Hide tier 5 sprites" title="Hide tier 5 sprites">
+                </div>
+
+                <div class="switch-row">
+                    <label class="switch-label" for="group-theme-switch">GROUP BY THEME</label>
+                    <input type="checkbox" id="group-theme-switch" class="switch-input" aria-label="Group by theme" title="Group by theme">
+                </div>
+
+                <div class="switch-row">
+                    <label class="switch-label" for="unreleased-switch">SHOW UNRELEASED</label>
+                    <input type="checkbox" id="unreleased-switch" class="switch-input" aria-label="Show unreleased sprites" title="Show unreleased sprites">
+                </div>
+
+                <div class="switch-row">
+                    <label class="switch-label" for="low-fidelity-switch">LOW FIDELITY MODE</label>
+                    <input type="checkbox" id="low-fidelity-switch" class="switch-input" aria-label="Low fidelity mode" title="Low fidelity mode">
                 </div>
             </aside>
 
             <div class="panel-box creator-card">
                 <button class="close-creator-btn" id="closeCreatorBtn" title="Hide for this session">❌</button>
                 <div class="creator-title">Made by Rick</div>
-                <a href="https://youtube.com/@rickventure" class="creator-link" target="_blank">
+                <a href="https://youtube.com/@rickventure" class="creator-link" target="_blank" rel="noopener noreferrer">
                     <img src="siteimages/rickpfpeak.png" class="creator-img" alt="Rickventure Channel" onerror="this.src='siteimages/rickpfpeak.png'">
                 </a>
-                <a href="https://youtube.com/@rickventure?sub_confirmation=1" class="sub-btn" target="_blank">sub 2 me</a>
+                <a href="https://youtube.com/@rickventure?sub_confirmation=1" class="sub-btn" target="_blank" rel="noopener noreferrer">sub 2 me</a>
                 <div class="creator-subtext">
                     Help me reach 1,000 subscribers so I can put a creator code here.
                 </div>

@@ -69,6 +69,10 @@ body {
     border-radius: 4px;
 }
 
+.is-hidden {
+    display: none;
+}
+
 .view-mode-banner a {
     color: var(--fn-yellow);
     margin-left: 10px;

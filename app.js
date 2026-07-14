@@ -296,7 +296,7 @@ function buildCardHTML(sprite, isObtained, isMastered) {
     const releaseDateLabel = getSpriteReleaseDateLabel(sprite);
     const unreleasedBadge = spriteIsUnreleased ? `<div class="status-badge unreleased">UNRELEASED</div>` : '';
     const releaseDateBadge = spriteIsUnreleased && releaseDateLabel
-        ? `<div class="status-badge release-date">RELEASES ${releaseDateLabel}</div>`
+        ? `<div class="status-badge release-date">${releaseDateLabel}</div>`
         : '';
     const isLevelZero = isObtained && getSpriteLevel(sprite.id) === 0;
     
