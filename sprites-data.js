@@ -133,7 +133,7 @@ const baseSprites = [
     { id: "batman_holofoil", name: "Holofoil Batman", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
 	{ id: "batman_rift", name: "Rift Batman", theme: "Rift", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
-	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
+	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
 
 	{ id: "vini_basic", name: "Vini Jr.", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
 
