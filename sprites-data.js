@@ -4,6 +4,15 @@
 // Use "0000-00-00" when a release date is unannounced; that acts like a null value and falls back to `unreleased`.
 // Example: { id: "example_basic", name: "Example", theme: "Basic", rarity: "Rare", unreleased: true, releaseDate: "2026-07-20" }
 const baseSprites = [
+
+    { id: "batman_basic", name: "Batman", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
+    { id: "batman_gold", name: "Gold Batman", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
+    { id: "batman_candy", name: "Gummy Batman", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
+    { id: "batman_galaxy", name: "Galaxy Batman", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
+    //	{ id: "batman_gem", name: "Gem Batman", theme: "Gem", rarity: "Special", unreleased: true },
+    { id: "batman_holofoil", name: "Holofoil Batman", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
+	{ id: "batman_rift", name: "Rift Batman", theme: "Rift", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+
     { id: "water_basic", name: "Water", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-06" },
     { id: "water_gold", name: "Gold Water", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "water_candy", name: "Gummy Water", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
@@ -71,19 +80,25 @@ const baseSprites = [
 	
     { id: "theburntpeanut_basic", name: "Burnt Peanut", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-06" },
 	
+    { id: "wick_basic", name: "John Wick", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
+
+	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-18" },
+
+	{ id: "vini_basic", name: "Vini Jr.", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
+
     { id: "fishy_basic", name: "Fishy", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_gold", name: "Gold Fishy", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_candy", name: "Gummy Fishy", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_galaxy", name: "Galaxy Fishy", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
-	//  { id: "fishy_gem", name: "Gem Fishy", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-	//  { id: "fishy_holofoil", name: "Holofoil Fishy", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "fishy_gem", name: "Gem Fishy", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "fishy_holofoil", name: "Holofoil Fishy", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "fishy_rift", name: "Rift Fishy", theme: "Rift", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
     { id: "striker_basic", name: "Striker", theme: "Basic", rarity: "Epic", unreleased: false, releaseDate: "2026-06-25" },
     { id: "striker_gold", name: "Gold Striker", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "striker_candy", name: "Gummy Striker", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "striker_galaxy", name: "Galaxy Striker", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
-    //  { id: "striker_gem", name: "Gem Striker", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "striker_gem", name: "Gem Striker", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "striker_holofoil", name: "Holofoil Striker", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-09" },
 
     { id: "aura_basic", name: "Aura", theme: "Basic", rarity: "Epic", unreleased: false, releaseDate: "2026-06-25" },
@@ -91,50 +106,36 @@ const baseSprites = [
     { id: "aura_candy", name: "Gummy Aura", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "aura_galaxy", name: "Galaxy Aura", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "aura_gem", name: "Gem Aura", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-	//  { id: "aura_holofoil", name: "Holofoil Aura", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "aura_holofoil", name: "Holofoil Aura", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
     { id: "boss_basic", name: "Boss", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-06-25" },
     { id: "boss_gold", name: "Gold Boss", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "boss_candy", name: "Gummy Boss", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "boss_galaxy", name: "Galaxy Boss", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
-	//  { id: "boss_gem", name: "Gem Boss", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-	//  { id: "boss_holofoil", name: "Holofoil Boss", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "boss_gem", name: "Gem Boss", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "boss_holofoil", name: "Holofoil Boss", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "boss_rift", name: "Rift Boss", theme: "Rift", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
     { id: "grim_basic", name: "Grim", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_gold", name: "Gold Grim", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_candy", name: "Gummy Grim", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_galaxy", name: "Galaxy Grim", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
-	//  { id: "grim_gem", name: "Gem Grim", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-	//  { id: "grim_holofoil", name: "Holofoil Grim", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "grim_gem", name: "Gem Grim", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "grim_holofoil", name: "Holofoil Grim", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "grim_rift", name: "Rift Grim", theme: "Rift", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
     { id: "air_basic", name: "Air", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-07-16" },
     { id: "air_gold", name: "Gold Air", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "air_candy", name: "Gummy Air", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "air_galaxy", name: "Galaxy Air", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-	//  { id: "air_gem", name: "Gem Air", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-07-16" },
+	{ id: "air_gem", name: "Gem Air", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-07-16" },
     { id: "air_holofoil", name: "Holofoil Air", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
 	
     { id: "seven_basic", name: "Seven", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-07-16" },
     { id: "seven_gold", name: "Gold Seven", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "seven_candy", name: "Gummy Seven", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "seven_galaxy", name: "Galaxy Seven", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-	//  { id: "seven_gem", name: "Gem Seven", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "seven_gem", name: "Gem Seven", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "seven_holofoil", name: "Holofoil Seven", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-
-    { id: "wick_basic", name: "John Wick", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
-
-    { id: "batman_basic", name: "Batman", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
-    { id: "batman_gold", name: "Gold Batman", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-    { id: "batman_candy", name: "Gummy Batman", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-    { id: "batman_galaxy", name: "Galaxy Batman", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-    //	{ id: "batman_gem", name: "Gem Batman", theme: "Gem", rarity: "Special", unreleased: true },
-    { id: "batman_holofoil", name: "Holofoil Batman", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-	{ id: "batman_rift", name: "Rift Batman", theme: "Rift", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-
-	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-18" },
-
-	{ id: "vini_basic", name: "Vini Jr.", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
 
 ];
