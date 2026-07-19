@@ -124,7 +124,7 @@ const baseSprites = [
     { id: "air_gold", name: "Gold Air", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "air_candy", name: "Gummy Air", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "air_galaxy", name: "Galaxy Air", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-	{ id: "air_gem", name: "Gem Air", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-07-16" },
+	{ id: "air_gem", name: "Gem Air", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "air_holofoil", name: "Holofoil Air", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
 	
     { id: "seven_basic", name: "Seven", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-07-16" },
