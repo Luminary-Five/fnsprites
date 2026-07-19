@@ -79,10 +79,6 @@ const baseSprites = [
     { id: "zeropoint_holofoil", name: "Quack Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 	
     { id: "theburntpeanut_basic", name: "Burnt Peanut", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-06" },
-	
-    { id: "wick_basic", name: "John Wick", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
-
-	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-18" },
 
 	{ id: "vini_basic", name: "Vini Jr.", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
 
@@ -138,4 +134,7 @@ const baseSprites = [
 	{ id: "seven_gem", name: "Gem Seven", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "seven_holofoil", name: "Holofoil Seven", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
 
+    { id: "wick_basic", name: "John Wick", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
+
+	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-18" },
 ];
