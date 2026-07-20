@@ -70,16 +70,16 @@ const baseSprites = [
     { id: "king_galaxy", name: "Galaxy King", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
     { id: "king_holofoil", name: "Holofoil King", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-09" },
 
+    { id: "vini_basic", name: "Vini Jr.", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
+	
+    { id: "theburntpeanut_basic", name: "Burnt Peanut", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-06" },
+
     { id: "zeropoint_basic", name: "Zero Point", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-06" },
     { id: "zeropoint_gold", name: "Gold Zero Point", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "zeropoint_candy", name: "Gummy Zero Point", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "zeropoint_galaxy", name: "Galaxy Zero Point", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
     { id: "zeropoint_gem", name: "Gem Zero Point", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "zeropoint_holofoil", name: "Quack Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-	
-    { id: "theburntpeanut_basic", name: "Burnt Peanut", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-06" },
-
-	{ id: "vini_basic", name: "Vini Jr.", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
 
     { id: "fishy_basic", name: "Fishy", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_gold", name: "Gold Fishy", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
