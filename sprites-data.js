@@ -9,7 +9,6 @@ const baseSprites = [
     { id: "batman_gold", name: "Gold Batman", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "batman_candy", name: "Gummy Batman", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "batman_galaxy", name: "Galaxy Batman", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-    { id: "batman_gem", name: "Gem Batman", theme: "Gem", rarity: "Special", unreleased: true },
     { id: "batman_holofoil", name: "Holofoil Batman", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
 	{ id: "batman_rift", name: "Rift Batman", theme: "Rift", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
 

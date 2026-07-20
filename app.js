@@ -26,6 +26,7 @@ const spriteGrid = document.getElementById('spriteGrid');
 const searchInput = document.getElementById('search');
 const themeFilter = document.getElementById('theme-filter');
 const unreleasedSwitch = document.getElementById('unreleased-switch');
+const unannouncedSwitch = document.getElementById('unannounced-switch');
 const lowFidelitySwitch = document.getElementById('low-fidelity-switch');
 const shareBtn = document.getElementById('shareBtn');
 const imageBtn = document.getElementById('imageBtn');
@@ -55,6 +56,7 @@ if (!isViewMode) {
     searchInput.value = localStorage.getItem('fn_state_search') || '';
     themeFilter.value = localStorage.getItem('fn_state_theme') || 'all';
     unreleasedSwitch.checked = localStorage.getItem('fn_state_unreleased') === 'true';
+    unannouncedSwitch.checked = localStorage.getItem('fn_state_unannounced') === 'true';
     lowFidelitySwitch.checked = localStorage.getItem('fn_state_low_fidelity') === 'true';
     hideMasteredSwitch.checked = localStorage.getItem('fn_state_hide_mastered') === 'true';
     hideTierFiveSwitch.checked = localStorage.getItem('fn_state_hide_tier5') === 'true';
@@ -120,6 +122,10 @@ unreleasedSwitch.addEventListener('change', () => {
     localStorage.setItem('fn_state_unreleased', unreleasedSwitch.checked);
     renderGrid();
 });
+unannouncedSwitch.addEventListener('change', () => {
+    localStorage.setItem('fn_state_unannounced', unannouncedSwitch.checked);
+    renderGrid();
+});
 hideMasteredSwitch.addEventListener('change', () => {
     localStorage.setItem('fn_state_hide_mastered', hideMasteredSwitch.checked);
     renderGrid();
@@ -158,6 +164,10 @@ function parseSpriteReleaseDate(releaseDateString) {
     if (parsed.getDate() !== Number(day)) return null;
 
     return parsed;
+}
+
+function isSpriteUnannounced(sprite) {
+    return typeof sprite?.releaseDate === 'string' && sprite.releaseDate.trim() === '0000-00-00';
 }
 
 function isSpriteUnreleased(sprite) {
@@ -293,8 +303,11 @@ function setSpriteLevel(id, level) {
 function buildCardHTML(sprite, isObtained, isMastered) {
     const itemRarity = sprite.rarity || 'Rare';
     const spriteIsUnreleased = isSpriteUnreleased(sprite);
+    const spriteIsUnannounced = isSpriteUnannounced(sprite);
     const releaseDateLabel = getSpriteReleaseDateLabel(sprite);
-    const unreleasedBadge = spriteIsUnreleased ? `<div class="status-badge unreleased">UNRELEASED</div>` : '';
+    const unreleasedBadge = spriteIsUnreleased
+        ? `<div class="status-badge unreleased">${spriteIsUnannounced ? 'UNANNOUNCED' : 'UNRELEASED'}</div>`
+        : '';
     const releaseDateBadge = spriteIsUnreleased && releaseDateLabel
         ? `<div class="status-badge release-date">${releaseDateLabel}</div>`
         : '';
@@ -355,6 +368,7 @@ function renderGrid() {
     const searchQuery = searchInput.value.toLowerCase();
     const selectedTheme = themeFilter.value;
     const showUnreleased = unreleasedSwitch.checked;
+    const showUnannounced = unannouncedSwitch.checked;
     const hideMastered = hideMasteredSwitch.checked;
     const hideTierFive = hideTierFiveSwitch.checked;
     const groupByThemeSetting = groupThemeSwitch.checked;
@@ -381,11 +395,13 @@ function renderGrid() {
         const isObtained = obtainedSprites.includes(sprite.id);
         const isMastered = masteredSprites.includes(sprite.id);
         const spriteIsUnreleased = isSpriteUnreleased(sprite);
+        const spriteIsUnannounced = isSpriteUnannounced(sprite);
         const spriteLevel = getSpriteLevel(sprite.id);
         const isLevelZero = isObtained && spriteLevel === 0;
         
         if (isViewMode && (!isObtained || spriteIsUnreleased)) return;
-        if (!isViewMode && !showUnreleased && spriteIsUnreleased) return;
+        if (!isViewMode && !showUnannounced && spriteIsUnannounced) return;
+        if (!isViewMode && !showUnreleased && spriteIsUnreleased && !spriteIsUnannounced) return;
 
         let matchesStatus = true;
         if (!isViewMode) {
