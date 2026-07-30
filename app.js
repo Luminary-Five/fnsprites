@@ -351,7 +351,7 @@ function buildCardHTML(sprite, isObtained, isMastered) {
 }
 
 function sortAndGroupSprites(itemsArray) {
-    const themeOrder = ["Basic", "Gold", "Candy", "Galaxy", "Gem", "Holofoil", "Rift"];
+    const themeOrder = ["Basic", "Cube", "Gold", "Candy", "Galaxy", "Gem", "Holofoil","Rift"];
     return [...itemsArray].sort((a, b) => {
         let themeA = a.sprite ? a.sprite.theme : a.theme;
         let themeB = b.sprite ? b.sprite.theme : b.theme;

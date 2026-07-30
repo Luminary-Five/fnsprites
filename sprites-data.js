@@ -79,10 +79,10 @@ const baseSprites = [
     { id: "zeropoint_candy", name: "Gummy Zero Point", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "zeropoint_galaxy", name: "Galaxy Zero Point", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
     { id: "zeropoint_gem", name: "Gem Zero Point", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-    { id: "zeropoint_holofoil", name: "Quack Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "zeropoint_holofoil", name: "Quack Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "2026-07-30" },
 
-    { id: "fishy_basic", name: "Fishy", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_rift", name: "Cube Fishy", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "fishy_basic", name: "Fishy", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_gold", name: "Gold Fishy", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_candy", name: "Gummy Fishy", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_galaxy", name: "Galaxy Fishy", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
