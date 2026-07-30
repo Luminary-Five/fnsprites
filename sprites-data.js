@@ -5,32 +5,37 @@
 // Example: { id: "example_basic", name: "Example", theme: "Basic", rarity: "Rare", unreleased: true, releaseDate: "2026-07-20" }
 const baseSprites = [
 
+    { id: "wick_basic", name: "John Wick", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
+
     { id: "batman_basic", name: "Batman", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-16" },
     { id: "batman_gold", name: "Gold Batman", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "batman_candy", name: "Gummy Batman", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "batman_galaxy", name: "Galaxy Batman", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
     { id: "batman_holofoil", name: "Holofoil Batman", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
-	{ id: "batman_rift", name: "Cube Batman", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+	{ id: "batman_cube", name: "Cube Batman", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
 
     { id: "water_basic", name: "Water", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-06" },
     { id: "water_gold", name: "Gold Water", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "water_candy", name: "Gummy Water", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "water_galaxy", name: "Galaxy Water", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
     { id: "water_gem", name: "Gem Water", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "water_quack", name: "Quack Water", theme: "Quack", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
     { id: "water_holofoil", name: "Holofoil Water", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-09" },
     
     { id: "earth_basic", name: "Earth", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-06" },
-    { id: "earth_rift", name: "Cube Earth", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "earth_cube", name: "Cube Earth", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "earth_gold", name: "Gold Earth", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "earth_candy", name: "Gummy Earth", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "earth_galaxy", name: "Galaxy Earth", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
     { id: "earth_gem", name: "Gem Earth", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "earth_quack", name: "Quack Earth", theme: "Quack", rarity: "Special", unreleased: true, releaseDate: "2026-07-30" },
     
     { id: "fire_basic", name: "Fire", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-06" },
-    { id: "fire_rift", name: "Cube Fire", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "fire_cube", name: "Cube Fire", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "fire_gold", name: "Gold Fire", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "fire_candy", name: "Gummy Fire", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "fire_galaxy", name: "Galaxy Fire", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
+    { id: "fire_quack", name: "Quack Fire", theme: "Quack", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
     { id: "fire_holofoil", name: "Holofoil Fire", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-09" },
 
     { id: "duck_basic", name: "Duck", theme: "Basic", rarity: "Epic", unreleased: false, releaseDate: "2026-06-06" },
@@ -46,7 +51,7 @@ const baseSprites = [
     { id: "ghost_holofoil", name: "Holofoil Ghost", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-09" },
 	
     { id: "dream_basic", name: "Dream", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-06-06" },
-    { id: "dream_rift", name: "Cube Dream", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "dream_cube", name: "Cube Dream", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "dream_gold", name: "Gold Dream", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "dream_candy", name: "Gummy Dream", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "dream_galaxy", name: "Galaxy Dream", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
@@ -58,7 +63,7 @@ const baseSprites = [
     { id: "demon_gem", name: "Gem Demon", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
 	{ id: "punk_basic", name: "Punk", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-06-06" },
-    { id: "punk_rift", name: "Cube Punk", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "punk_cube", name: "Cube Punk", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "punk_gold", name: "Gold Punk", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "punk_candy", name: "Gummy Punk", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "punk_galaxy", name: "Galaxy Punk", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
@@ -78,10 +83,12 @@ const baseSprites = [
     { id: "zeropoint_gold", name: "Gold Zero Point", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "zeropoint_candy", name: "Gummy Zero Point", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "zeropoint_galaxy", name: "Galaxy Zero Point", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
+    { id: "zeropoint_cube", name: "Cube Zero Point", theme: "Cube", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
     { id: "zeropoint_gem", name: "Gem Zero Point", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-    { id: "zeropoint_holofoil", name: "Quack Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "2026-07-30" },
+    { id: "zeropoint_quack", name: "Quack Zero Point", theme: "Quack", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+    { id: "zeropoint_holofoil", name: "Holofoil Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "2026-07-30" },
 
-    { id: "fishy_rift", name: "Cube Fishy", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "fishy_cube", name: "Cube Fishy", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "fishy_basic", name: "Fishy", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_gold", name: "Gold Fishy", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "fishy_candy", name: "Gummy Fishy", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
@@ -104,7 +111,7 @@ const baseSprites = [
 	{ id: "aura_holofoil", name: "Holofoil Aura", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
     { id: "boss_basic", name: "Boss", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-06-25" },
-    { id: "boss_rift", name: "Cube Boss", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "boss_cube", name: "Cube Boss", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "boss_gold", name: "Gold Boss", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "boss_candy", name: "Gummy Boss", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "boss_galaxy", name: "Galaxy Boss", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
@@ -112,7 +119,7 @@ const baseSprites = [
 	{ id: "boss_holofoil", name: "Holofoil Boss", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
     { id: "grim_basic", name: "Grim", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-25" },
-    { id: "grim_rift", name: "Cube Grim", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "grim_cube", name: "Cube Grim", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "grim_gold", name: "Gold Grim", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_candy", name: "Gummy Grim", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_galaxy", name: "Galaxy Grim", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
@@ -133,10 +140,22 @@ const baseSprites = [
 	{ id: "seven_gem", name: "Gem Seven", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
     { id: "seven_holofoil", name: "Holofoil Seven", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
 
-    { id: "wick_basic", name: "John Wick", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
-    
-	{ id: "peely_basic", name: "Peely", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-07-30" },
-	{ id: "llama_basic", name: "Llama", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "ironmouse_basic", name: "Ironmouse", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-30" },
 
-	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-18" },
+    { id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-18" },
+
+	{ id: "llama_basic", name: "Llama", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "llama_gold", name: "Gold Llama", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "llama_candy", name: "Gummy Llama", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "llama_galaxy", name: "Galaxy Llama", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "llama_gem", name: "Gem Llama", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "llama_holofoil", name: "Holofoil Llama", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+
+	{ id: "peely_basic", name: "Peely", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "peely_gold", name: "Gold Peely", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "peely_candy", name: "Gummy Peely", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "peely_galaxy", name: "Galaxy Peely", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "peely_gem", name: "Gem Peely", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "peely_holofoil", name: "Holofoil Peely", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
+
 ];
