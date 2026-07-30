@@ -134,6 +134,9 @@ const baseSprites = [
     { id: "seven_holofoil", name: "Holofoil Seven", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
 
     { id: "wick_basic", name: "John Wick", theme: "Basic", rarity: "Mythic", unreleased: true, releaseDate: "0000-00-00" },
+    
+	{ id: "peely_basic", name: "Peely", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-07-30" },
+	{ id: "llama_basic", name: "Llama", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-07-30" },
 
 	{ id: "pollo_basic", name: "Pollo", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-07-18" },
 ];
