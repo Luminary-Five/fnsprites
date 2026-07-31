@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Fortnite Sprites — List & Individual Guides</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/site/staticsprite.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght=500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <script src="../assets/js/sprites-data.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <header class="fn-navbar">
+        <div class="fn-topbar">
+            <div class="brand-container">
+                <img src="../assets/images/site/staticsprite.png" alt="Mascot" class="brand-mascot">
+                <div class="brand-title">FORTNITE SPRITES TRACKER</div>
+            </div>
+            <nav class="fn-topnav" aria-label="Primary">
+                <a href="../index.html" class="fn-toplink">HOME</a>
+                <a href="../sprites/" class="fn-toplink">SPRITES</a>
+                <a href="../variants/" class="fn-toplink">VARIENTS</a>
+                <a href="../guides/" class="fn-toplink">GUIDES</a>
+                <a href="../drop-rates/" class="fn-toplink">DROP RATES</a>
+                <a href="../whats-new/" class="fn-toplink">WHAT'S NEW</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="sprites-page-wrap">
+        <nav class="sprites-breadcrumbs" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a><span>/</span><span class="current">Sprites</span>
+        </nav>
+
+        <section class="sprites-page-hero">
+            <p class="eyebrow">Fortnite Chapter 7 Season 3 · Runners</p>
+            <h1>All Fortnite Sprites</h1>
+            <p class="sprites-page-lead" id="spritesPageLead">
+                Browse every Fortnite Sprite in the game. Tap a Sprite card for its core variant in your checklist.
+            </p>
+        </section>
+
+        <section id="rareSection" class="sprites-rarity-section">
+            <h2>Rare Sprites <a href="../rarity/rare/" class="sprites-view-all-link">View all Rare →</a></h2>
+            <div class="sprites-link-grid" id="rareGrid"></div>
+        </section>
+
+        <section id="epicSection" class="sprites-rarity-section">
+            <h2>Epic Sprites <a href="../rarity/epic/" class="sprites-view-all-link">View all Epic →</a></h2>
+            <div class="sprites-link-grid" id="epicGrid"></div>
+        </section>
+
+        <section id="legendarySection" class="sprites-rarity-section">
+            <h2>Legendary Sprites <a href="../rarity/legendary/" class="sprites-view-all-link">View all Legendary →</a></h2>
+            <div class="sprites-link-grid" id="legendaryGrid"></div>
+        </section>
+
+        <section id="mythicSection" class="sprites-rarity-section">
+            <h2>Mythic Sprites <a href="../rarity/mythic/" class="sprites-view-all-link">View all Mythic →</a></h2>
+            <div class="sprites-link-grid" id="mythicGrid"></div>
+        </section>
+
+        <section class="sprites-related">
+            <h2>Browse by variant</h2>
+            <div class="sprites-related-grid">
+                <a href="../variants/">All Variants</a>
+                <a href="../variants/gold/">Gold Sprites</a>
+                <a href="../variants/gummy/">Gummy Sprites</a>
+                <a href="../variants/galaxy/">Galaxy Sprites</a>
+                <a href="../variants/gem/">Gem Sprites</a>
+                <a href="../variants/holofoil/">Holofoil Sprites</a>
+                <a href="../variants/cube/">Cube Sprites</a>
+                <a href="../variants/quack/">Quack Sprites</a>
+                <a href="../drop-rates/">Drop rates</a>
+                <a href="../how-many-sprites/">How many sprites?</a>
+                <a href="../index.html">FORTNITE SPRITES TRACKER</a>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    function isReleased(sprite) {
+        if (!sprite) return false;
+        const rawDate = typeof sprite.releaseDate === 'string' ? sprite.releaseDate : '';
+        const isUnknownDate = rawDate === '0000-00-00';
+        const hasRealDate = /^\d{4}-\d{2}-\d{2}$/.test(rawDate) && !isUnknownDate;
+
+        if (hasRealDate) {
+            const [year, month, day] = rawDate.split('-').map(Number);
+            const release = new Date(year, month - 1, day);
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            return release.getTime() <= today.getTime();
+        }
+
+        return !sprite.unreleased;
+    }
+
+    function getSpriteDisplayName(name) {
+        if (!name) return 'Unknown Sprite';
+        const cleanName = String(name).trim();
+        return /sprite$/i.test(cleanName) ? cleanName : `${cleanName} Sprite`;
+    }
+
+    function slugifySpriteName(name) {
+        return String(name || '')
+            .toLowerCase()
+            .replace(/\./g, '')
+            .replace(/'/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function createSpriteCard(sprite) {
+        const card = document.createElement('a');
+        card.className = 'sprites-link-card';
+        const spriteSlug = slugifySpriteName(sprite.name);
+        card.href = `./${spriteSlug}/`;
+        card.dataset.spriteSlug = spriteSlug;
+        card.setAttribute('aria-label', `${sprite.name} (${sprite.rarity})`);
+
+        card.addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            const folderUrl = `./${spriteSlug}/`;
+            const fallbackUrl = `../index.html#${spriteSlug}`;
+
+            try {
+                const response = await fetch(`./${spriteSlug}/index.html`, { method: 'HEAD' });
+                window.location.href = response.ok ? folderUrl : fallbackUrl;
+            } catch (_error) {
+                window.location.href = fallbackUrl;
+            }
+        });
+
+        const image = document.createElement('img');
+        image.src = `../assets/images/sprites/${sprite.id}.png`;
+        image.alt = getSpriteDisplayName(sprite.name);
+        image.width = 84;
+        image.height = 84;
+        image.loading = 'lazy';
+
+        image.onerror = function handleImageError() {
+            this.src = '../assets/images/site/staticsprite.png';
+        };
+
+        const name = document.createElement('span');
+        name.className = 'nm';
+        name.textContent = getSpriteDisplayName(sprite.name);
+
+        const rarity = document.createElement('span');
+        rarity.className = 'sub';
+        rarity.textContent = sprite.rarity;
+
+        card.appendChild(image);
+        card.appendChild(name);
+        card.appendChild(rarity);
+        return card;
+    }
+
+    function renderRarityGrid(rarity, gridId) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return { sprites: [], count: 0 };
+
+        const releasedBasics = (Array.isArray(baseSprites) ? baseSprites : [])
+            .filter((sprite) => sprite.theme === 'Basic')
+            .filter((sprite) => sprite.rarity === rarity)
+            .filter((sprite) => isReleased(sprite));
+
+        releasedBasics
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .forEach((sprite) => {
+                grid.appendChild(createSpriteCard(sprite));
+            });
+
+        return { sprites: releasedBasics, count: releasedBasics.length };
+    }
+
+    function updateLeadCopy(totalSprites) {
+        const lead = document.getElementById('spritesPageLead');
+        if (!lead) return;
+
+        const releasedVariants = (Array.isArray(baseSprites) ? baseSprites : [])
+            .filter((sprite) => isReleased(sprite)).length;
+
+        lead.innerHTML = `
+            Browse every Fortnite Sprite in the game — ${totalSprites} Sprites across ${releasedVariants} released variants.
+            Jump straight to the <a href="../index.html">FORTNITE SPRITES TRACKER</a> to track your collection.
+        `;
+    }
+
+    function initializeSpritesDirectory() {
+        const rare = renderRarityGrid('Rare', 'rareGrid');
+        const epic = renderRarityGrid('Epic', 'epicGrid');
+        const legendary = renderRarityGrid('Legendary', 'legendaryGrid');
+        const mythic = renderRarityGrid('Mythic', 'mythicGrid');
+
+        const totalSprites = rare.count + epic.count + legendary.count + mythic.count;
+        updateLeadCopy(totalSprites);
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeSpritesDirectory);
+</script>
+</body>
+</html>

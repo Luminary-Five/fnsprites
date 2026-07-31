@@ -44,12 +44,136 @@ const liveRatio = document.getElementById('live-counter-ratio');
 const liveBarFill = document.getElementById('live-counter-bar');
 const masteryRatio = document.getElementById('mastery-counter-ratio');
 const masteryBarFill = document.getElementById('mastery-counter-bar');
-const fallbackSpriteImagePath = 'siteimages/staticsprite.png';
+const insightCollectionPct = document.getElementById('insightCollectionPct');
+const insightMasteryPct = document.getElementById('insightMasteryPct');
+const insightRarestMissing = document.getElementById('insightRarestMissing');
+const insightClosestSet = document.getElementById('insightClosestSet');
+const insightEasiestPull = document.getElementById('insightEasiestPull');
+const fallbackSpriteImagePath = 'assets/images/site/staticsprite.png';
+const missingSpriteImageOverrides = new Set([
+    'llama_holofoil'
+]);
+const defaultDocumentTitle = document.title || 'Fortnite Sprite Tracker';
 const releaseDateFormatter = new Intl.DateTimeFormat('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric'
 });
+
+function getSpriteImagePath(spriteId) {
+    if (!spriteId || missingSpriteImageOverrides.has(spriteId)) return fallbackSpriteImagePath;
+    return `assets/images/sprites/${spriteId}.png`;
+}
+
+function updateDynamicDocumentTitle(masteryPercentage) {
+    const clampedPercentage = Math.max(0, Math.min(100, Math.round(masteryPercentage)));
+    document.title = `${clampedPercentage}% • ${defaultDocumentTitle}`;
+}
+
+function getRarityWeight(rarity) {
+    if (rarity === 'Mythic') return 4;
+    if (rarity === 'Legendary') return 3;
+    if (rarity === 'Epic') return 2;
+    if (rarity === 'Rare') return 1;
+    return 0;
+}
+
+function getFamilyKey(sprite) {
+    if (!sprite || typeof sprite.id !== 'string') return 'unknown';
+    return sprite.id.split('_')[0] || 'unknown';
+}
+
+function getFamilyDisplayName(sprites) {
+    if (!sprites || sprites.length === 0) return 'Unknown';
+    const base = sprites.find(item => item.theme === 'Basic') || sprites[0];
+    return base.name;
+}
+
+function updateTrackerInsights(totalReleased, collectedReleased, masteredReleased) {
+    if (
+        !insightCollectionPct ||
+        !insightMasteryPct ||
+        !insightRarestMissing ||
+        !insightClosestSet ||
+        !insightEasiestPull ||
+        typeof baseSprites === 'undefined'
+    ) {
+        return;
+    }
+
+    const releasedSprites = baseSprites.filter(sprite => !isSpriteUnreleased(sprite));
+    const missingReleasedSprites = releasedSprites.filter(sprite => !obtainedSprites.includes(sprite.id));
+    const collectionPct = totalReleased > 0 ? Math.round((collectedReleased / totalReleased) * 100) : 0;
+    const masteryPct = totalReleased > 0 ? Math.round((masteredReleased / totalReleased) * 100) : 0;
+
+    insightCollectionPct.textContent = `${collectionPct}%`;
+    insightMasteryPct.textContent = `${masteryPct}%`;
+
+    if (missingReleasedSprites.length === 0) {
+        insightRarestMissing.textContent = 'COMPLETE ✅';
+        insightClosestSet.textContent = 'ALL SETS COMPLETE ✅';
+        insightEasiestPull.textContent = 'NOTHING LEFT TO PULL ✅';
+        return;
+    }
+
+    const rarestMissing = [...missingReleasedSprites]
+        .sort((a, b) => {
+            const rarityDiff = getRarityWeight(b.rarity) - getRarityWeight(a.rarity);
+            if (rarityDiff !== 0) return rarityDiff;
+            return a.name.localeCompare(b.name);
+        })[0];
+
+    const easiestPull = [...missingReleasedSprites]
+        .sort((a, b) => {
+            const rarityDiff = getRarityWeight(a.rarity) - getRarityWeight(b.rarity);
+            if (rarityDiff !== 0) return rarityDiff;
+            return a.name.localeCompare(b.name);
+        })[0];
+
+    const familyBuckets = new Map();
+    releasedSprites.forEach(sprite => {
+        const familyKey = getFamilyKey(sprite);
+        if (!familyBuckets.has(familyKey)) familyBuckets.set(familyKey, []);
+        familyBuckets.get(familyKey).push(sprite);
+    });
+
+    const closestCandidates = [];
+    familyBuckets.forEach((familySprites) => {
+        const total = familySprites.length;
+        const owned = familySprites.filter(item => obtainedSprites.includes(item.id)).length;
+        const missing = total - owned;
+        if (missing <= 0) return;
+
+        closestCandidates.push({
+            name: getFamilyDisplayName(familySprites),
+            total,
+            owned,
+            missing,
+            ratio: total > 0 ? owned / total : 0
+        });
+    });
+
+    closestCandidates.sort((a, b) => {
+        const ratioDiff = b.ratio - a.ratio;
+        if (ratioDiff !== 0) return ratioDiff;
+
+        const missingDiff = a.missing - b.missing;
+        if (missingDiff !== 0) return missingDiff;
+
+        return a.name.localeCompare(b.name);
+    });
+
+    const closestSet = closestCandidates[0];
+
+    insightRarestMissing.textContent = `${rarestMissing.name} (${(rarestMissing.rarity || 'Rare').toUpperCase()})`;
+    insightEasiestPull.textContent = `${easiestPull.name} (${(easiestPull.rarity || 'Rare').toUpperCase()})`;
+
+    if (closestSet) {
+        insightClosestSet.textContent = `${closestSet.name}: ${closestSet.owned}/${closestSet.total}`;
+    } else {
+        insightClosestSet.textContent = '—';
+    }
+}
 
 // RESTORE LAST SAVED STATES FROM LOCAL STORAGE
 if (!isViewMode) {
@@ -199,6 +323,8 @@ function updateCollectionCounter() {
     masteryRatio.textContent = `${masteredReleased} / ${totalReleased}`;
     const masteryPercentage = totalReleased > 0 ? (masteredReleased / totalReleased) * 100 : 0;
     masteryBarFill.style.width = `${masteryPercentage}%`;
+    updateDynamicDocumentTitle(masteryPercentage);
+    updateTrackerInsights(totalReleased, collectedReleased, masteredReleased);
 }
 
 function adjustCardFontSizes() {
@@ -330,7 +456,7 @@ function buildCardHTML(sprite, isObtained, isMastered) {
 
     const displayRarityText = itemRarity === 'Mythic' ? 'MYTHIC' : itemRarity;
     const rarityBadge = `<div class="fortnite-rarity-tag">${displayRarityText}</div>`;
-    const inferredImagePath = `sprites/${sprite.id}.png`;
+    const inferredImagePath = getSpriteImagePath(sprite.id);
     const adaptiveTitleFontSize = getAdaptiveTitleFontSize(sprite.name);
     const levelSelectorHTML = buildLevelSelector(sprite.id, !isViewMode, getSpriteLevel(sprite.id));
 
@@ -574,7 +700,7 @@ function exportCanvasImage(mode) {
     canvas.height = topBarHeight + (rows * (cardH + padding) + padding) + footerLinkHeight + (borderThickness * 2);
     
     const mascotImg = new Image();
-    mascotImg.src = 'siteimages/staticsprite.png';
+    mascotImg.src = 'assets/images/site/staticsprite.png';
     
     mascotImg.onload = () => { processRenderChain(); };
     mascotImg.onerror = () => { processRenderChain(); };
@@ -725,7 +851,7 @@ function exportCanvasImage(mode) {
         targetItems.forEach((sprite, index) => {
             const img = new Image();
             img.crossOrigin = 'anonymous';
-            img.src = `sprites/${sprite.id}.png`;
+            img.src = getSpriteImagePath(sprite.id);
             
             img.onload = () => {
                 const r = index % cols;
@@ -940,3 +1066,4 @@ if (document.fonts && document.fonts.ready) {
 }
 
 window.addEventListener('resize', adjustCardFontSizes);
+

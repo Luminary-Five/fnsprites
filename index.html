@@ -5,27 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortnite Sprite Tracker</title>
     
-    <link rel="icon" type="image/png" href="siteimages/staticsprite.png">
+    <link rel="icon" type="image/png" href="assets/images/site/staticsprite.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght=500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     
-    <script src="sprites-data.js" defer></script>
-    <script src="share-utils.js" defer></script>
-    <script src="app.js" defer></script>
+    <script src="assets/js/sprites-data.js" defer></script>
+    <script src="assets/js/share-utils.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 </head>
 <body>
 
 <div class="container">
     <header class="fn-navbar">
-        <div class="brand-container">
-            <img src="siteimages/staticsprite.png" alt="Mascot" class="brand-mascot">
-            <div class="brand-title">FORTNITE SPRITES TRACKER</div>
+        <div class="fn-topbar">
+            <div class="brand-container">
+                <img src="assets/images/site/staticsprite.png" alt="Mascot" class="brand-mascot">
+                <div class="brand-title">FORTNITE SPRITES TRACKER</div>
+            </div>
+
+            <nav class="fn-topnav" aria-label="Primary">
+                <a href="index.html" class="fn-toplink">HOME</a>
+                <a href="sprites/" class="fn-toplink">SPRITES</a>
+                <a href="variants/" class="fn-toplink">VARIENTS</a>
+                <a href="guides/" class="fn-toplink">GUIDES</a>
+                <a href="drop-rates/" class="fn-toplink">DROP RATES</a>
+                <a href="whats-new/" class="fn-toplink">WHAT'S NEW</a>
+            </nav>
         </div>
-        <div class="nav-controls-right">
+    </header>
+
+    <section class="tracker-header" aria-label="Tracker controls">
+        <div class="fn-toolbar">
             <div class="progress-wrapper">
                 <div class="live-progress-box">
                     <div class="live-progress-text">COLLECTION PROGRESS: <span id="live-counter-ratio">0 / 0</span></div>
@@ -40,14 +54,17 @@
                     </div>
                 </div>
             </div>
-            <button class="missing-image-btn" id="missingImageBtn">GENERATE MISSING SPRITES IMAGE</button>
-            <button class="image-btn" id="imageBtn">GENERATE COLLECTION IMAGE</button>
-            <button class="unmastered-image-btn" id="unmasteredImageBtn">GENERATE UNMASTERED SPRITES IMAGE</button>
-            <button class="unmastered-image-btn" id="nonTier5ImageBtn">GENERATE NON TIER 5 SPRITES IMAGE</button>
-            <button class="mastered-image-btn" id="masteredImageBtn">GENERATE MASTERED SPRITES IMAGE</button>
-            <button class="share-btn" id="shareBtn">SHARE COLLECTION</button>
+
+            <div class="nav-controls-right">
+                <button class="missing-image-btn" id="missingImageBtn">MISSING IMAGE</button>
+                <button class="image-btn" id="imageBtn">COLLECTION IMAGE</button>
+                <button class="unmastered-image-btn" id="unmasteredImageBtn">UNMASTERED IMAGE</button>
+                <button class="unmastered-image-btn" id="nonTier5ImageBtn">NON TIER 5 IMAGE</button>
+                <button class="mastered-image-btn" id="masteredImageBtn">MASTERED IMAGE</button>
+                <button class="share-btn" id="shareBtn">SHARE</button>
+            </div>
         </div>
-    </header>
+    </section>
 
     <div class="view-mode-banner is-hidden" id="viewModeBanner">
         👀 VIEWING A SHARED COLLECTION. ITEMS ARE FILTERED TO SHOW COLLECTED ONLY.
@@ -110,11 +127,41 @@
                 </div>
             </aside>
 
+            <aside class="panel-box tracker-insights" id="trackerInsights">
+                <div class="filter-header">TRACKER INSIGHTS</div>
+
+                <div class="insight-stat-grid">
+                    <div class="insight-stat-item">
+                        <div class="insight-stat-label">COLLECTION</div>
+                        <div class="insight-stat-value" id="insightCollectionPct">0%</div>
+                    </div>
+                    <div class="insight-stat-item">
+                        <div class="insight-stat-label">MASTERY</div>
+                        <div class="insight-stat-value mastery" id="insightMasteryPct">0%</div>
+                    </div>
+                </div>
+
+                <div class="insight-list">
+                    <div class="insight-row">
+                        <div class="insight-label">RAREST MISSING</div>
+                        <div class="insight-value" id="insightRarestMissing">—</div>
+                    </div>
+                    <div class="insight-row">
+                        <div class="insight-label">CLOSEST SET</div>
+                        <div class="insight-value" id="insightClosestSet">—</div>
+                    </div>
+                    <div class="insight-row">
+                        <div class="insight-label">EASIEST PULL</div>
+                        <div class="insight-value" id="insightEasiestPull">—</div>
+                    </div>
+                </div>
+            </aside>
+
             <div class="panel-box creator-card">
                 <button class="close-creator-btn" id="closeCreatorBtn" title="Hide for this session">❌</button>
                 <div class="creator-title">Made by Rick</div>
                 <a href="https://youtube.com/@rickventure" class="creator-link" target="_blank" rel="noopener noreferrer">
-                    <img src="siteimages/rickpfpeak.png" class="creator-img" alt="Rickventure Channel" onerror="this.src='siteimages/rickpfpeak.png'">
+                    <img src="assets/images/site/rickpfpeak.png" class="creator-img" alt="Rickventure Channel" onerror="this.src='assets/images/site/rickpfpeak.png'">
                 </a>
                 <a href="https://youtube.com/@rickventure?sub_confirmation=1" class="sub-btn" target="_blank" rel="noopener noreferrer">sub 2 me</a>
                 <div class="creator-subtext">
