@@ -124,7 +124,7 @@ const baseSprites = [
     { id: "grim_candy", name: "Gummy Grim", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_galaxy", name: "Galaxy Grim", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
 	{ id: "grim_gem", name: "Gem Grim", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
-	{ id: "grim_holofoil", name: "Holofoil Grim", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "grim_holofoil", name: "Holofoil Grim", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
 
     { id: "air_basic", name: "Air", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-07-16" },
     { id: "air_gold", name: "Gold Air", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-16" },
@@ -148,8 +148,8 @@ const baseSprites = [
 	{ id: "llama_gold", name: "Gold Llama", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
 	{ id: "llama_candy", name: "Gummy Llama", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
 	{ id: "llama_galaxy", name: "Galaxy Llama", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
-	{ id: "llama_gem", name: "Gem Llama", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-07-30" },
-	{ id: "llama_holofoil", name: "Holofoil Llama", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "0000-00-00" },
+	{ id: "llama_gem", name: "Gem Llama", theme: "Gem", rarity: "Special", unreleased: fasle, releaseDate: "2026-07-30" },
+	{ id: "llama_holofoil", name: "Holofoil Llama", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
 	{ id: "peely_basic", name: "Peely", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-07-30" },
 	{ id: "peely_gold", name: "Gold Peely", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
