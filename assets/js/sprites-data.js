@@ -50,7 +50,7 @@ const baseSprites = [
     { id: "ghost_galaxy", name: "Galaxy Ghost", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
     { id: "ghost_holofoil", name: "Holofoil Ghost", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-09" },
 	
-    { id: "dream_cube", name: "Cube Dream", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
+    { id: "dream_cube", name: "Cube Dream", theme: "Cube", rarity: "Special", unreleased: false, releaseDate: "2026-07-23" },
     { id: "dream_basic", name: "Dream", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-06-06" },
     { id: "dream_gold", name: "Gold Dream", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "dream_candy", name: "Gummy Dream", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
