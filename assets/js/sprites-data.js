@@ -19,7 +19,7 @@ const baseSprites = [
     { id: "water_quack", name: "Quack Water", theme: "Quack", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
     { id: "water_candy", name: "Gummy Water", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "water_galaxy", name: "Galaxy Water", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
-    { id: "water_gem", name: "Gem Water", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "water_gem", name: "Gem Water", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
     { id: "water_holofoil", name: "Holofoil Water", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-09" },
     
     { id: "earth_basic", name: "Earth", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-06" },
@@ -28,7 +28,7 @@ const baseSprites = [
     { id: "earth_quack", name: "Quack Earth", theme: "Quack", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
     { id: "earth_candy", name: "Gummy Earth", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "earth_galaxy", name: "Galaxy Earth", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
-    { id: "earth_gem", name: "Gem Earth", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "earth_gem", name: "Gem Earth", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
     
     { id: "fire_basic", name: "Fire", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-06" },
     { id: "fire_cube", name: "Cube Fire", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
@@ -42,7 +42,7 @@ const baseSprites = [
     { id: "duck_gold", name: "Gold Duck", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "duck_candy", name: "Gummy Duck", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "duck_galaxy", name: "Galaxy Duck", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
-    { id: "duck_gem", name: "Gem Duck", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "duck_gem", name: "Gem Duck", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
 	
     { id: "ghost_basic", name: "Ghost", theme: "Basic", rarity: "Epic", unreleased: false, releaseDate: "2026-06-06" },
     { id: "ghost_gold", name: "Gold Ghost", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
@@ -60,14 +60,14 @@ const baseSprites = [
     { id: "demon_gold", name: "Gold Demon", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "demon_candy", name: "Gummy Demon", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
 	{ id: "demon_galaxy", name: "Galaxy Demon", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
-    { id: "demon_gem", name: "Gem Demon", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "demon_gem", name: "Gem Demon", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
 
     { id: "punk_cube", name: "Cube Punk", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
 	{ id: "punk_basic", name: "Punk", theme: "Basic", rarity: "Legendary", unreleased: false, releaseDate: "2026-06-06" },
     { id: "punk_gold", name: "Gold Punk", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
     { id: "punk_candy", name: "Gummy Punk", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "punk_galaxy", name: "Galaxy Punk", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
-    { id: "punk_gem", name: "Gem Punk", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "punk_gem", name: "Gem Punk", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
 
 	{ id: "king_basic", name: "King", theme: "Basic", rarity: "Epic", unreleased: false, releaseDate: "2026-06-06" },
     { id: "king_gold", name: "Gold King", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-06" },
@@ -86,7 +86,7 @@ const baseSprites = [
     { id: "zeropoint_candy", name: "Gummy Zero Point", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-11" },
     { id: "zeropoint_galaxy", name: "Galaxy Zero Point", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-18" },
     { id: "zeropoint_holofoil", name: "Holofoil Zero Point", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "2026-07-30" },
-    { id: "zeropoint_gem", name: "Gem Zero Point", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "zeropoint_gem", name: "Gem Zero Point", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
 
     { id: "fishy_cube", name: "Cube Fishy", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "fishy_basic", name: "Fishy", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-06-25" },
@@ -107,7 +107,7 @@ const baseSprites = [
     { id: "aura_gold", name: "Gold Aura", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "aura_candy", name: "Gummy Aura", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "aura_galaxy", name: "Galaxy Aura", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
-    { id: "aura_gem", name: "Gem Aura", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+    { id: "aura_gem", name: "Gem Aura", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
 	{ id: "aura_holofoil", name: "Holofoil Aura", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
     { id: "boss_cube", name: "Cube Boss", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
@@ -118,12 +118,12 @@ const baseSprites = [
 	{ id: "boss_gem", name: "Gem Boss", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 	{ id: "boss_holofoil", name: "Holofoil Boss", theme: "Holofoil", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
 
-    { id: "grim_cube", name: "Cube Grim", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "grim_basic", name: "Grim", theme: "Basic", rarity: "Mythic", unreleased: false, releaseDate: "2026-06-25" },
+    { id: "grim_cube", name: "Cube Grim", theme: "Cube", rarity: "Special", unreleased: true, releaseDate: "2026-07-23" },
     { id: "grim_gold", name: "Gold Grim", theme: "Gold", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_candy", name: "Gummy Grim", theme: "Candy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
     { id: "grim_galaxy", name: "Galaxy Grim", theme: "Galaxy", rarity: "Special", unreleased: false, releaseDate: "2026-06-25" },
-	{ id: "grim_gem", name: "Gem Grim", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "0000-00-00" },
+	{ id: "grim_gem", name: "Gem Grim", theme: "Gem", rarity: "Special", unreleased: true, releaseDate: "2026-08-06" },
 	{ id: "grim_holofoil", name: "Holofoil Grim", theme: "Holofoil", rarity: "Special", unreleased: false, releaseDate: "2026-07-30" },
 
     { id: "air_basic", name: "Air", theme: "Basic", rarity: "Rare", unreleased: false, releaseDate: "2026-07-16" },

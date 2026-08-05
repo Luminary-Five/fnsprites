@@ -42,6 +42,7 @@
     /* Dynamic theme variants */
     --theme-bg-Basic: linear-gradient(180deg, #1c2436 0%, #0c0f17 100%);
     --theme-bg-Gold: linear-gradient(180deg, #61460b 0%, #241a02 100%);
+    --theme-bg-Quack: linear-gradient(180deg, #322554 0%, #12091f 100%);
     --theme-bg-Candy: linear-gradient(180deg, #6b183f 0%, #260514 100%);
     --theme-bg-Galaxy: linear-gradient(180deg, #1f1145 0%, #080314 100%);
     --theme-bg-Gem: linear-gradient(180deg, #114c47 0%, #041a18 100%);
@@ -1260,6 +1261,7 @@ body {
 
 .sprite-card.rarity-Special.theme-Basic .card-inner-display { background: var(--theme-bg-Basic); }
 .sprite-card.rarity-Special.theme-Gold .card-inner-display { background: var(--theme-bg-Gold); }
+.sprite-card.rarity-Special.theme-Quack .card-inner-display { background: var(--theme-bg-Quack); }
 .sprite-card.rarity-Special.theme-Candy .card-inner-display { background: var(--theme-bg-Candy); }
 .sprite-card.rarity-Special.theme-Galaxy .card-inner-display { background: var(--theme-bg-Galaxy); }
 .sprite-card.rarity-Special.theme-Gem .card-inner-display { background: var(--theme-bg-Gem); }
